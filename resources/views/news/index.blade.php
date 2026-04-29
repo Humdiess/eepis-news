@@ -11,7 +11,7 @@
 
     <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-full flex flex-col justify-end pb-16">
         <div class="max-w-3xl">
-            <span class="category-badge bg-pens-cyan text-white mb-4">Headline</span>
+            <a href="/kategori" class="category-badge bg-pens-cyan text-white mb-4 hover:bg-pens-blue transition-colors inline-block">Headline</a>
             <h1 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white leading-tight mb-4">
                 PENS Raih Peringkat 1 Politeknik Terbaik Indonesia Versi Webometrics 2026
             </h1>
@@ -37,7 +37,7 @@
             <img src="https://images.unsplash.com/photo-1581092160607-ee22621dd758?w=600&q=70" class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
             <div class="gradient-overlay-sm absolute inset-0"></div>
             <div class="relative z-10 h-full flex flex-col justify-end p-4">
-                <span class="text-xs text-pens-light font-semibold">Riset</span>
+                <a href="/kategori" class="text-xs text-pens-light font-semibold hover:text-white transition-colors">Riset</a>
                 <h3 class="text-sm font-semibold text-white line-clamp-2">Mahasiswa PENS Kembangkan Robot Pendeteksi Bencana Berbasis AI</h3>
             </div>
         </a>
@@ -45,7 +45,7 @@
             <img src="https://images.unsplash.com/photo-1523580494863-6f3031224c94?w=600&q=70" class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
             <div class="gradient-overlay-sm absolute inset-0"></div>
             <div class="relative z-10 h-full flex flex-col justify-end p-4">
-                <span class="text-xs text-pens-light font-semibold">Prestasi</span>
+                <a href="/kategori" class="text-xs text-pens-light font-semibold hover:text-white transition-colors">Prestasi</a>
                 <h3 class="text-sm font-semibold text-white line-clamp-2">Tim PENS Juara Kompetisi IoT Nasional 2026</h3>
             </div>
         </a>
@@ -137,7 +137,7 @@
                 <div class="flex flex-wrap gap-2">
                     @php $categories = ['Akademik', 'Riset', 'Prestasi', 'Kegiatan', 'Opini', 'Pengumuman', 'Teknologi', 'Beasiswa', 'Alumni', 'Internasional']; @endphp
                     @foreach($categories as $cat)
-                    <a href="#" class="px-3 py-1.5 text-xs font-medium text-gray-600 bg-gray-50 hover:bg-pens-cyan hover:text-white rounded-full border border-gray-200 hover:border-pens-cyan transition-all duration-300">{{ $cat }}</a>
+                    <a href="/kategori" class="px-3 py-1.5 text-xs font-medium text-gray-600 bg-gray-50 hover:bg-pens-cyan hover:text-white rounded-full border border-gray-200 hover:border-pens-cyan transition-all duration-300">{{ $cat }}</a>
                     @endforeach
                 </div>
             </div>
@@ -181,7 +181,7 @@
                 <img src="{{ $popular[0]['img'] }}" class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
                 <div class="gradient-overlay absolute inset-0"></div>
                 <div class="relative z-10 h-full flex flex-col justify-end p-6">
-                    <span class="category-badge {{ $popular[0]['color'] }} text-white mb-3 w-fit">{{ $popular[0]['cat'] }}</span>
+                    <a href="/kategori" class="category-badge {{ $popular[0]['color'] }} text-white mb-3 w-fit hover:brightness-110 transition-all">{{ $popular[0]['cat'] }}</a>
                     <h3 class="text-xl font-bold text-white mb-2 group-hover:text-pens-light transition-colors">{{ $popular[0]['title'] }}</h3>
                     <p class="text-sm text-gray-300 line-clamp-2 mb-3">{{ $popular[0]['desc'] }}</p>
                     <div class="flex items-center gap-3 text-xs text-gray-400">
@@ -197,7 +197,7 @@
             <article class="group bg-pens-gray rounded-2xl overflow-hidden border border-gray-100 news-card-hover flex flex-col sm:flex-row md:flex-col">
                 <div class="relative overflow-hidden aspect-[16/10] sm:w-48 sm:aspect-auto md:w-full md:aspect-[16/10] flex-shrink-0">
                     <img src="{{ $news['img'] }}" alt="{{ $news['title'] }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
-                    <span class="category-badge {{ $news['color'] }} text-white absolute top-3 left-3">{{ $news['cat'] }}</span>
+                    <a href="/kategori" class="category-badge {{ $news['color'] }} text-white absolute top-3 left-3 hover:brightness-110 transition-all">{{ $news['cat'] }}</a>
                 </div>
                 <div class="p-5 flex flex-col justify-center">
                     <h3 class="font-bold text-pens-navy leading-snug mb-2 group-hover:text-pens-cyan transition-colors line-clamp-2">{{ $news['title'] }}</h3>

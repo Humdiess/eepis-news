@@ -11,6 +11,10 @@ Route::get('/berita/detail', function () {
     return view('news.show');
 });
 
+Route::get('/kategori', function () {
+    return view('news.category');
+});
+
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');

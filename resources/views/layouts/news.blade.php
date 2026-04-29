@@ -39,11 +39,11 @@
                 {{-- Desktop Nav --}}
                 <div class="hidden md:flex items-center gap-1">
                     <a href="/" class="px-4 py-2 text-sm font-medium text-white hover:text-pens-light transition-colors rounded-lg hover:bg-white/5">Beranda</a>
-                    <a href="#" class="px-4 py-2 text-sm font-medium text-gray-300 hover:text-pens-light transition-colors rounded-lg hover:bg-white/5">Akademik</a>
-                    <a href="#" class="px-4 py-2 text-sm font-medium text-gray-300 hover:text-pens-light transition-colors rounded-lg hover:bg-white/5">Riset</a>
-                    <a href="#" class="px-4 py-2 text-sm font-medium text-gray-300 hover:text-pens-light transition-colors rounded-lg hover:bg-white/5">Prestasi</a>
-                    <a href="#" class="px-4 py-2 text-sm font-medium text-gray-300 hover:text-pens-light transition-colors rounded-lg hover:bg-white/5">Kegiatan</a>
-                    <a href="#" class="px-4 py-2 text-sm font-medium text-gray-300 hover:text-pens-light transition-colors rounded-lg hover:bg-white/5">Opini</a>
+                    <a href="/kategori" class="px-4 py-2 text-sm font-medium text-gray-300 hover:text-pens-light transition-colors rounded-lg hover:bg-white/5">Akademik</a>
+                    <a href="/kategori" class="px-4 py-2 text-sm font-medium text-gray-300 hover:text-pens-light transition-colors rounded-lg hover:bg-white/5">Riset</a>
+                    <a href="/kategori" class="px-4 py-2 text-sm font-medium text-gray-300 hover:text-pens-light transition-colors rounded-lg hover:bg-white/5">Prestasi</a>
+                    <a href="/kategori" class="px-4 py-2 text-sm font-medium text-gray-300 hover:text-pens-light transition-colors rounded-lg hover:bg-white/5">Kegiatan</a>
+                    <a href="/kategori" class="px-4 py-2 text-sm font-medium text-gray-300 hover:text-pens-light transition-colors rounded-lg hover:bg-white/5">Opini</a>
                 </div>
 
                 {{-- Search + Mobile Toggle --}}
@@ -69,11 +69,11 @@
         <div x-show="mobileOpen" x-cloak x-transition:enter="transition ease-out duration-200" x-transition:enter-start="opacity-0 -translate-y-2" x-transition:enter-end="opacity-100 translate-y-0" x-transition:leave="transition ease-in duration-150" x-transition:leave-start="opacity-100 translate-y-0" x-transition:leave-end="opacity-0 -translate-y-2" class="md:hidden border-t border-white/5">
             <div class="px-4 py-3 space-y-1">
                 <a href="/" class="block px-4 py-2.5 text-sm font-medium text-white rounded-lg bg-white/5">Beranda</a>
-                <a href="#" class="block px-4 py-2.5 text-sm font-medium text-gray-300 hover:text-white rounded-lg hover:bg-white/5 transition-colors">Akademik</a>
-                <a href="#" class="block px-4 py-2.5 text-sm font-medium text-gray-300 hover:text-white rounded-lg hover:bg-white/5 transition-colors">Riset</a>
-                <a href="#" class="block px-4 py-2.5 text-sm font-medium text-gray-300 hover:text-white rounded-lg hover:bg-white/5 transition-colors">Prestasi</a>
-                <a href="#" class="block px-4 py-2.5 text-sm font-medium text-gray-300 hover:text-white rounded-lg hover:bg-white/5 transition-colors">Kegiatan</a>
-                <a href="#" class="block px-4 py-2.5 text-sm font-medium text-gray-300 hover:text-white rounded-lg hover:bg-white/5 transition-colors">Opini</a>
+                <a href="/kategori" class="block px-4 py-2.5 text-sm font-medium text-gray-300 hover:text-white rounded-lg hover:bg-white/5 transition-colors">Akademik</a>
+                <a href="/kategori" class="block px-4 py-2.5 text-sm font-medium text-gray-300 hover:text-white rounded-lg hover:bg-white/5 transition-colors">Riset</a>
+                <a href="/kategori" class="block px-4 py-2.5 text-sm font-medium text-gray-300 hover:text-white rounded-lg hover:bg-white/5 transition-colors">Prestasi</a>
+                <a href="/kategori" class="block px-4 py-2.5 text-sm font-medium text-gray-300 hover:text-white rounded-lg hover:bg-white/5 transition-colors">Kegiatan</a>
+                <a href="/kategori" class="block px-4 py-2.5 text-sm font-medium text-gray-300 hover:text-white rounded-lg hover:bg-white/5 transition-colors">Opini</a>
             </div>
         </div>
     </nav>
@@ -124,12 +124,12 @@
                 <div>
                     <h4 class="text-sm font-semibold text-white uppercase tracking-wider mb-5">Kategori</h4>
                     <ul class="space-y-3">
-                        <li><a href="#" class="text-sm text-gray-400 hover:text-pens-light transition-colors">Akademik</a></li>
-                        <li><a href="#" class="text-sm text-gray-400 hover:text-pens-light transition-colors">Riset & Inovasi</a></li>
-                        <li><a href="#" class="text-sm text-gray-400 hover:text-pens-light transition-colors">Prestasi Mahasiswa</a></li>
-                        <li><a href="#" class="text-sm text-gray-400 hover:text-pens-light transition-colors">Kegiatan Kampus</a></li>
-                        <li><a href="#" class="text-sm text-gray-400 hover:text-pens-light transition-colors">Opini & Artikel</a></li>
-                        <li><a href="#" class="text-sm text-gray-400 hover:text-pens-light transition-colors">Pengumuman</a></li>
+                        <li><a href="/kategori" class="text-sm text-gray-400 hover:text-pens-light transition-colors">Akademik</a></li>
+                        <li><a href="/kategori" class="text-sm text-gray-400 hover:text-pens-light transition-colors">Riset & Inovasi</a></li>
+                        <li><a href="/kategori" class="text-sm text-gray-400 hover:text-pens-light transition-colors">Prestasi Mahasiswa</a></li>
+                        <li><a href="/kategori" class="text-sm text-gray-400 hover:text-pens-light transition-colors">Kegiatan Kampus</a></li>
+                        <li><a href="/kategori" class="text-sm text-gray-400 hover:text-pens-light transition-colors">Opini & Artikel</a></li>
+                        <li><a href="/kategori" class="text-sm text-gray-400 hover:text-pens-light transition-colors">Pengumuman</a></li>
                     </ul>
                 </div>
 

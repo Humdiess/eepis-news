@@ -10,7 +10,7 @@
 
     <div class="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 h-full flex flex-col justify-end pb-16 text-center">
         <div class="flex items-center justify-center gap-3 mb-6">
-            <span class="category-badge bg-pens-cyan text-white">Akademik</span>
+            <a href="/kategori" class="category-badge bg-pens-cyan text-white hover:bg-pens-blue transition-colors">Akademik</a>
             <span class="text-gray-400 text-sm">&bull;</span>
             <span class="text-gray-300 text-sm">5 min read</span>
         </div>
@@ -174,7 +174,7 @@
             <a href="/berita/detail" class="group bg-white rounded-2xl overflow-hidden shadow-sm border border-gray-100 news-card-hover block">
                 <div class="relative overflow-hidden aspect-[16/10]">
                     <img src="{{ $item['img'] }}" alt="{{ $item['title'] }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
-                    <span class="category-badge {{ $item['color'] }} text-white absolute top-3 left-3">{{ $item['cat'] }}</span>
+                    <a href="/kategori" class="category-badge {{ $item['color'] }} text-white absolute top-3 left-3 hover:brightness-110 transition-all">{{ $item['cat'] }}</a>
                 </div>
                 <div class="p-5">
                     <h3 class="font-bold text-sm text-pens-navy leading-snug mb-2 group-hover:text-pens-cyan transition-colors line-clamp-2">{{ $item['title'] }}</h3>
