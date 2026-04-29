@@ -7,6 +7,10 @@ Route::get('/', function () {
     return view('news.index');
 });
 
+Route::get('/berita/detail', function () {
+    return view('news.show');
+});
+
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');

@@ -33,7 +33,7 @@
 
     {{-- Side mini cards --}}
     <div class="hidden lg:flex absolute right-8 bottom-16 z-10 flex-col gap-3 w-80">
-        <a href="#" class="group relative rounded-xl overflow-hidden h-28 block">
+        <a href="/berita/detail" class="group relative rounded-xl overflow-hidden h-28 block">
             <img src="https://images.unsplash.com/photo-1581092160607-ee22621dd758?w=600&q=70" class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
             <div class="gradient-overlay-sm absolute inset-0"></div>
             <div class="relative z-10 h-full flex flex-col justify-end p-4">
@@ -41,7 +41,7 @@
                 <h3 class="text-sm font-semibold text-white line-clamp-2">Mahasiswa PENS Kembangkan Robot Pendeteksi Bencana Berbasis AI</h3>
             </div>
         </a>
-        <a href="#" class="group relative rounded-xl overflow-hidden h-28 block">
+        <a href="/berita/detail" class="group relative rounded-xl overflow-hidden h-28 block">
             <img src="https://images.unsplash.com/photo-1523580494863-6f3031224c94?w=600&q=70" class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
             <div class="gradient-overlay-sm absolute inset-0"></div>
             <div class="relative z-10 h-full flex flex-col justify-end p-4">
@@ -80,18 +80,20 @@
 
             @foreach($latestNews as $news)
             <article class="group bg-white rounded-2xl overflow-hidden shadow-sm border border-gray-100 news-card-hover">
-                <div class="relative overflow-hidden aspect-[16/10]">
-                    <img src="{{ $news['img'] }}" alt="{{ $news['title'] }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
-                    <span class="category-badge {{ $news['color'] }} text-white absolute top-3 left-3">{{ $news['cat'] }}</span>
-                </div>
-                <div class="p-5">
-                    <h3 class="font-bold text-pens-navy leading-snug mb-2 group-hover:text-pens-cyan transition-colors line-clamp-2">{{ $news['title'] }}</h3>
-                    <p class="text-sm text-gray-500 leading-relaxed mb-4 line-clamp-2">{{ $news['desc'] }}</p>
-                    <div class="flex items-center justify-between text-xs text-gray-400">
-                        <span>{{ $news['author'] }}</span>
-                        <span>{{ $news['date'] }}</span>
+                <a href="/berita/detail" class="block">
+                    <div class="relative overflow-hidden aspect-[16/10]">
+                        <img src="{{ $news['img'] }}" alt="{{ $news['title'] }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                        <span class="category-badge {{ $news['color'] }} text-white absolute top-3 left-3">{{ $news['cat'] }}</span>
                     </div>
-                </div>
+                    <div class="p-5">
+                        <h3 class="font-bold text-pens-navy leading-snug mb-2 group-hover:text-pens-cyan transition-colors line-clamp-2">{{ $news['title'] }}</h3>
+                        <p class="text-sm text-gray-500 leading-relaxed mb-4 line-clamp-2">{{ $news['desc'] }}</p>
+                        <div class="flex items-center justify-between text-xs text-gray-400">
+                            <span>{{ $news['author'] }}</span>
+                            <span>{{ $news['date'] }}</span>
+                        </div>
+                    </div>
+                </a>
             </article>
             @endforeach
         </div>
@@ -175,7 +177,7 @@
 
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
             {{-- Featured Popular --}}
-            <a href="#" class="group md:col-span-1 md:row-span-2 relative rounded-2xl overflow-hidden min-h-[400px] block">
+            <a href="/berita/detail" class="group md:col-span-1 md:row-span-2 relative rounded-2xl overflow-hidden min-h-[400px] block">
                 <img src="{{ $popular[0]['img'] }}" class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
                 <div class="gradient-overlay absolute inset-0"></div>
                 <div class="relative z-10 h-full flex flex-col justify-end p-6">
