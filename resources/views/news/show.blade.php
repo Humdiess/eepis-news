@@ -171,17 +171,18 @@
 
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             @foreach($related as $item)
-            <a href="/berita/detail" class="group bg-white rounded-2xl overflow-hidden shadow-sm border border-gray-100 news-card-hover block">
-                <div class="relative overflow-hidden aspect-[16/10]">
+            <div class="card-container group relative flex flex-col h-full bg-white rounded-2xl overflow-hidden shadow-sm border border-gray-100 news-card-hover">
+                <a href="/berita/detail" class="absolute inset-0 z-10" aria-label="Baca selengkapnya: {{ $item['title'] }}"></a>
+                <div class="card-image relative overflow-hidden h-[200px] shrink-0">
                     <img src="{{ $item['img'] }}" alt="{{ $item['title'] }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
-                    <a href="/kategori" class="category-badge {{ $item['color'] }} text-white absolute top-3 left-3 hover:brightness-110 transition-all">{{ $item['cat'] }}</a>
+                    <a href="/kategori" class="category-badge {{ $item['color'] }} text-white absolute top-3 left-3 hover:brightness-110 transition-all z-20">{{ $item['cat'] }}</a>
                 </div>
-                <div class="p-5">
+                <div class="card-info p-5 flex flex-col flex-grow">
                     <h3 class="font-bold text-sm text-pens-navy leading-snug mb-2 group-hover:text-pens-cyan transition-colors line-clamp-2">{{ $item['title'] }}</h3>
                     <p class="text-xs text-gray-400 line-clamp-2 mb-3">{{ $item['desc'] }}</p>
-                    <span class="text-xs text-gray-400">{{ $item['date'] }}</span>
+                    <span class="text-xs text-gray-400 mt-auto">{{ $item['date'] }}</span>
                 </div>
-            </a>
+            </div>
             @endforeach
         </div>
     </div>
