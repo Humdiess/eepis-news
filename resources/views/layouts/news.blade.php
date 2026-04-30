@@ -25,10 +25,8 @@
             <div class="flex items-center justify-between h-16">
                 {{-- Logo --}}
                 <a href="/" class="flex items-center gap-3 group">
-                    <div class="w-9 h-9 bg-gradient-to-br from-pens-cyan to-pens-light rounded-lg flex items-center justify-center shadow-lg shadow-pens-cyan/20 group-hover:shadow-pens-cyan/40 transition-shadow duration-300">
-                        <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 7.5h1.5m-1.5 3h1.5m-7.5 3h7.5m-7.5 3h7.5m3-9h3.375c.621 0 1.125.504 1.125 1.125V18a2.25 2.25 0 01-2.25 2.25M16.5 7.5V18a2.25 2.25 0 002.25 2.25M16.5 7.5V4.875c0-.621-.504-1.125-1.125-1.125H4.125C3.504 3.75 3 4.254 3 4.875V18a2.25 2.25 0 002.25 2.25h13.5M6 7.5h3v3H6v-3z"/>
-                        </svg>
+                    <div class="w-9 h-9  rounded-lg flex items-center justify-center">
+                        <img src="{{ asset('images/logo.png') }}" alt="{{ config('app.name') }}" class="w-full h-full object-contain">
                     </div>
                     <div>
                         <span class="text-lg font-bold text-white tracking-tight">EEPIS</span>
