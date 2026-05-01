@@ -20,66 +20,108 @@
 <body class="font-sans antialiased bg-pens-gray text-pens-navy">
 
     {{-- ========== NAVBAR ========== --}}
-    <nav class="nav-glass fixed top-0 left-0 right-0 z-50 border-b border-white/5" x-data="{ mobileOpen: false }">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex items-center justify-between h-16">
-                {{-- Logo --}}
-                <a href="/" class="flex items-center gap-3 group">
-                    <div class="w-9 h-9  rounded-lg flex items-center justify-center">
-                        <img src="{{ asset('images/logo.png') }}" alt="{{ config('app.name') }}" class="w-full h-full object-contain">
-                    </div>
-                    <div>
-                        <span class="text-lg font-bold text-white tracking-tight">EEPIS</span>
-                        <span class="text-lg font-light text-pens-light tracking-tight"> News</span>
-                    </div>
-                </a>
+    <nav class="fixed top-0 left-0 right-0 z-50" style="background:#0F172A;" x-data="{ mobileOpen: false }">
 
-                {{-- Desktop Nav --}}
-                <div class="hidden md:flex items-center gap-1">
-                    <a href="/" class="px-4 py-2 text-sm font-medium text-white hover:text-pens-light transition-colors rounded-lg hover:bg-white/5">Beranda</a>
-                    <a href="/kategori" class="px-4 py-2 text-sm font-medium text-gray-300 hover:text-pens-light transition-colors rounded-lg hover:bg-white/5">Akademik</a>
-                    <a href="/kategori" class="px-4 py-2 text-sm font-medium text-gray-300 hover:text-pens-light transition-colors rounded-lg hover:bg-white/5">Riset</a>
-                    <a href="/kategori" class="px-4 py-2 text-sm font-medium text-gray-300 hover:text-pens-light transition-colors rounded-lg hover:bg-white/5">Prestasi</a>
-                    <a href="/kategori" class="px-4 py-2 text-sm font-medium text-gray-300 hover:text-pens-light transition-colors rounded-lg hover:bg-white/5">Kegiatan</a>
-                    <a href="/kategori" class="px-4 py-2 text-sm font-medium text-gray-300 hover:text-pens-light transition-colors rounded-lg hover:bg-white/5">Opini</a>
-                </div>
+        {{-- Desktop: 3-column layout --}}
+        <div class="hidden md:block" style="border-bottom:1px solid rgba(255,255,255,0.08);">
+            <div class="max-w-7xl mx-auto px-6 lg:px-8">
+                <div class="flex items-center gap-6" style="height:88px;">
 
-                {{-- Search + Mobile Toggle --}}
-                <div class="flex items-center gap-3">
-                    <a href="/search" class="p-2 text-gray-300 hover:text-pens-light transition-colors rounded-lg hover:bg-white/5">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"/>
-                        </svg>
+                    {{-- LEFT: Logo --}}
+                    <a href="/" class="flex items-center gap-2.5 shrink-0">
+                        <img src="{{ asset('images/logo.png') }}" alt="EEPIS" style="width:60px;height:60px;object-fit:contain;">
                     </a>
-                    <button @click="mobileOpen = !mobileOpen" class="md:hidden p-2 text-gray-300 hover:text-white transition-colors rounded-lg hover:bg-white/5">
-                        <svg x-show="!mobileOpen" class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"/>
-                        </svg>
-                        <svg x-show="mobileOpen" x-cloak class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/>
-                        </svg>
-                    </button>
+
+                    {{-- CENTER: Search bar + category links --}}
+                    <div class="flex-1 flex flex-col gap-2">
+                        {{-- Search bar --}}
+                        <form action="/search" method="GET">
+                            <div style="position:relative;">
+                                <svg style="position:absolute;left:14px;top:50%;transform:translateY(-50%);width:16px;height:16px;color:#94a3b8;pointer-events:none;" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"/>
+                                </svg>
+                                <input type="text" name="q" placeholder="Cari berita, topik, atau kata kunci..."
+                                    style="width:100%;height:38px;padding-left:42px;padding-right:16px;background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.12);border-radius:8px;font-size:13px;color:#fff;outline:none;transition:all 0.2s;"
+                                    onfocus="this.style.background='rgba(255,255,255,0.11)';this.style.borderColor='rgba(14,165,233,0.5)'"
+                                    onblur="this.style.background='rgba(255,255,255,0.07)';this.style.borderColor='rgba(255,255,255,0.12)'"
+                                >
+                            </div>
+                        </form>
+                        {{-- Category links --}}
+                        <div style="display:flex;align-items:center;gap:0;overflow-x:auto;scrollbar-width:none;">
+                            <a href="/" style="padding:0 12px;font-size:11px;font-weight:600;color:#38BDF8;text-transform:uppercase;letter-spacing:0.07em;white-space:nowrap;text-decoration:none;border-bottom:2px solid #0EA5E9;padding-bottom:2px;">Beranda</a>
+                            <a href="/kategori" style="padding:0 12px;font-size:11px;font-weight:500;color:#94a3b8;text-transform:uppercase;letter-spacing:0.07em;white-space:nowrap;text-decoration:none;border-bottom:2px solid transparent;padding-bottom:2px;" onmouseover="this.style.color='#38BDF8'" onmouseout="this.style.color='#94a3b8'">Akademik</a>
+                            <a href="/kategori" style="padding:0 12px;font-size:11px;font-weight:500;color:#94a3b8;text-transform:uppercase;letter-spacing:0.07em;white-space:nowrap;text-decoration:none;border-bottom:2px solid transparent;padding-bottom:2px;" onmouseover="this.style.color='#38BDF8'" onmouseout="this.style.color='#94a3b8'">Riset</a>
+                            <a href="/kategori" style="padding:0 12px;font-size:11px;font-weight:500;color:#94a3b8;text-transform:uppercase;letter-spacing:0.07em;white-space:nowrap;text-decoration:none;border-bottom:2px solid transparent;padding-bottom:2px;" onmouseover="this.style.color='#38BDF8'" onmouseout="this.style.color='#94a3b8'">Prestasi</a>
+                            <a href="/kategori" style="padding:0 12px;font-size:11px;font-weight:500;color:#94a3b8;text-transform:uppercase;letter-spacing:0.07em;white-space:nowrap;text-decoration:none;border-bottom:2px solid transparent;padding-bottom:2px;" onmouseover="this.style.color='#38BDF8'" onmouseout="this.style.color='#94a3b8'">Kegiatan</a>
+                            <a href="/kategori" style="padding:0 12px;font-size:11px;font-weight:500;color:#94a3b8;text-transform:uppercase;letter-spacing:0.07em;white-space:nowrap;text-decoration:none;border-bottom:2px solid transparent;padding-bottom:2px;" onmouseover="this.style.color='#38BDF8'" onmouseout="this.style.color='#94a3b8'">Opini</a>
+                            <a href="/kategori" style="padding:0 12px;font-size:11px;font-weight:500;color:#94a3b8;text-transform:uppercase;letter-spacing:0.07em;white-space:nowrap;text-decoration:none;border-bottom:2px solid transparent;padding-bottom:2px;" onmouseover="this.style.color='#38BDF8'" onmouseout="this.style.color='#94a3b8'">Pengumuman</a>
+                            <a href="/kategori" style="padding:0 12px;font-size:11px;font-weight:500;color:#94a3b8;text-transform:uppercase;letter-spacing:0.07em;white-space:nowrap;text-decoration:none;border-bottom:2px solid transparent;padding-bottom:2px;" onmouseover="this.style.color='#38BDF8'" onmouseout="this.style.color='#94a3b8'">Beasiswa</a>
+                            <a href="/kategori" style="padding:0 12px;font-size:11px;font-weight:500;color:#94a3b8;text-transform:uppercase;letter-spacing:0.07em;white-space:nowrap;text-decoration:none;border-bottom:2px solid transparent;padding-bottom:2px;" onmouseover="this.style.color='#38BDF8'" onmouseout="this.style.color='#94a3b8'">Alumni</a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
 
-        {{-- Mobile Menu --}}
-        <div x-show="mobileOpen" x-cloak x-transition:enter="transition ease-out duration-200" x-transition:enter-start="opacity-0 -translate-y-2" x-transition:enter-end="opacity-100 translate-y-0" x-transition:leave="transition ease-in duration-150" x-transition:leave-start="opacity-100 translate-y-0" x-transition:leave-end="opacity-0 -translate-y-2" class="md:hidden border-t border-white/5">
-            <div class="px-4 py-3 space-y-1">
-                <a href="/" class="block px-4 py-2.5 text-sm font-medium text-white rounded-lg bg-white/5">Beranda</a>
-                <a href="/kategori" class="block px-4 py-2.5 text-sm font-medium text-gray-300 hover:text-white rounded-lg hover:bg-white/5 transition-colors">Akademik</a>
-                <a href="/kategori" class="block px-4 py-2.5 text-sm font-medium text-gray-300 hover:text-white rounded-lg hover:bg-white/5 transition-colors">Riset</a>
-                <a href="/kategori" class="block px-4 py-2.5 text-sm font-medium text-gray-300 hover:text-white rounded-lg hover:bg-white/5 transition-colors">Prestasi</a>
-                <a href="/kategori" class="block px-4 py-2.5 text-sm font-medium text-gray-300 hover:text-white rounded-lg hover:bg-white/5 transition-colors">Kegiatan</a>
-                <a href="/kategori" class="block px-4 py-2.5 text-sm font-medium text-gray-300 hover:text-white rounded-lg hover:bg-white/5 transition-colors">Opini</a>
+        {{-- Mobile: simple top bar + hamburger --}}
+        <div class="md:hidden flex items-center justify-between px-4" style="height:56px;border-bottom:1px solid rgba(255,255,255,0.08);">
+            <a href="/" class="flex items-center gap-2">
+                <img src="{{ asset('images/logo.png') }}" alt="EEPIS" style="width:32px;height:32px;object-fit:contain;">
+                <span style="font-size:15px;font-weight:700;color:#fff;">EEPIS<span style="font-weight:300;color:#38BDF8;"> News</span></span>
+            </a>
+            <div class="flex items-center gap-1">
+                <a href="/search" style="display:flex;align-items:center;justify-content:center;width:36px;height:36px;color:#94a3b8;border-radius:8px;text-decoration:none;">
+                    <svg style="width:20px;height:20px;" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"/></svg>
+                </a>
+                <button @click="mobileOpen = !mobileOpen" style="display:flex;align-items:center;justify-content:center;width:36px;height:36px;color:#94a3b8;background:none;border:none;cursor:pointer;border-radius:8px;">
+                    <svg x-show="!mobileOpen" style="width:20px;height:20px;" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"/></svg>
+                    <svg x-show="mobileOpen" x-cloak style="width:20px;height:20px;" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
+                </button>
             </div>
         </div>
+
+        {{-- Mobile dropdown --}}
+        <div x-show="mobileOpen" x-cloak
+             x-transition:enter="transition ease-out duration-200"
+             x-transition:enter-start="opacity-0 -translate-y-1"
+             x-transition:enter-end="opacity-100 translate-y-0"
+             x-transition:leave="transition ease-in duration-150"
+             x-transition:leave-start="opacity-100 translate-y-0"
+             x-transition:leave-end="opacity-0 -translate-y-1"
+             class="md:hidden" style="background:#0F172A;border-top:1px solid rgba(255,255,255,0.08);">
+            <div style="padding:12px 16px;display:flex;flex-direction:column;gap:12px;">
+                <form action="/search" method="GET">
+                    <div style="position:relative;">
+                        <svg style="position:absolute;left:12px;top:50%;transform:translateY(-50%);width:16px;height:16px;color:#64748b;pointer-events:none;" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"/></svg>
+                        <input type="text" name="q" placeholder="Cari berita..." style="width:100%;height:40px;padding-left:38px;padding-right:12px;background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.12);border-radius:8px;font-size:14px;color:#fff;outline:none;box-sizing:border-box;">
+                    </div>
+                </form>
+                <div style="display:flex;flex-direction:column;border-top:1px solid rgba(255,255,255,0.06);">
+                    <a href="/" style="padding:10px 8px;font-size:14px;font-weight:600;color:#fff;text-decoration:none;border-bottom:1px solid rgba(255,255,255,0.06);">Beranda</a>
+                    <a href="/kategori" style="padding:10px 8px;font-size:14px;color:#94a3b8;text-decoration:none;border-bottom:1px solid rgba(255,255,255,0.06);">Akademik</a>
+                    <a href="/kategori" style="padding:10px 8px;font-size:14px;color:#94a3b8;text-decoration:none;border-bottom:1px solid rgba(255,255,255,0.06);">Riset</a>
+                    <a href="/kategori" style="padding:10px 8px;font-size:14px;color:#94a3b8;text-decoration:none;border-bottom:1px solid rgba(255,255,255,0.06);">Prestasi</a>
+                    <a href="/kategori" style="padding:10px 8px;font-size:14px;color:#94a3b8;text-decoration:none;border-bottom:1px solid rgba(255,255,255,0.06);">Kegiatan</a>
+                    <a href="/kategori" style="padding:10px 8px;font-size:14px;color:#94a3b8;text-decoration:none;border-bottom:1px solid rgba(255,255,255,0.06);">Opini</a>
+                    <a href="/kategori" style="padding:10px 8px;font-size:14px;color:#94a3b8;text-decoration:none;border-bottom:1px solid rgba(255,255,255,0.06);">Pengumuman</a>
+                    <a href="/kategori" style="padding:10px 8px;font-size:14px;color:#94a3b8;text-decoration:none;">Alumni</a>
+                </div>
+                <a href="#" style="display:flex;align-items:center;justify-content:center;height:42px;background:#0EA5E9;border-radius:8px;font-size:13px;font-weight:700;color:#fff;text-decoration:none;text-transform:uppercase;letter-spacing:0.05em;">
+                    Permohonan Liputan
+                </a>
+            </div>
+        </div>
+
     </nav>
 
-    {{-- ========== MAIN CONTENT ========== --}}
-    <main class="pt-16">
+    {{-- MAIN CONTENT — desktop offset 88px (navbar height), mobile 56px --}}
+    <main style="padding-top:56px;" class="md:pt-0">
+        <div class="hidden md:block" style="height:88px;"></div>
         @yield('content')
     </main>
+
+
 
     {{-- ========== FOOTER ========== --}}
     <footer class="bg-pens-navy text-gray-300">
