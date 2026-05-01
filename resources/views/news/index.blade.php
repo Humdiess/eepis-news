@@ -30,28 +30,6 @@
             </div>
         </div>
     </div>
-
-    {{-- Side mini cards --}}
-    <div class="hidden lg:flex absolute right-8 bottom-16 z-10 flex-col gap-3 w-80">
-        <div class="group relative rounded-xl overflow-hidden h-28 block">
-            <a href="/berita/detail" class="absolute inset-0 z-10"><span class="sr-only">Baca selengkapnya</span></a>
-            <img src="https://images.unsplash.com/photo-1581092160607-ee22621dd758?w=600&q=70" class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
-            <div class="gradient-overlay-sm absolute inset-0"></div>
-            <div class="relative h-full flex flex-col justify-end p-4">
-                <a href="/kategori" class="text-xs text-pens-light font-semibold hover:text-white transition-colors relative z-20">Riset</a>
-                <h3 class="text-sm font-semibold text-white line-clamp-2 relative z-0">Mahasiswa PENS Kembangkan Robot Pendeteksi Bencana Berbasis AI</h3>
-            </div>
-        </div>
-        <div class="group relative rounded-xl overflow-hidden h-28 block">
-            <a href="/berita/detail" class="absolute inset-0 z-10"><span class="sr-only">Baca selengkapnya</span></a>
-            <img src="https://images.unsplash.com/photo-1523580494863-6f3031224c94?w=600&q=70" class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
-            <div class="gradient-overlay-sm absolute inset-0"></div>
-            <div class="relative h-full flex flex-col justify-end p-4">
-                <a href="/kategori" class="text-xs text-pens-light font-semibold hover:text-white transition-colors relative z-20">Prestasi</a>
-                <h3 class="text-sm font-semibold text-white line-clamp-2 relative z-0">Tim PENS Juara Kompetisi IoT Nasional 2026</h3>
-            </div>
-        </div>
-    </div>
 </section>
 
 {{-- ========== BERITA TERBARU + SIDEBAR ========== --}}
