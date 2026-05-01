@@ -33,22 +33,24 @@
 
     {{-- Side mini cards --}}
     <div class="hidden lg:flex absolute right-8 bottom-16 z-10 flex-col gap-3 w-80">
-        <a href="/berita/detail" class="group relative rounded-xl overflow-hidden h-28 block">
+        <div class="group relative rounded-xl overflow-hidden h-28 block">
+            <a href="/berita/detail" class="absolute inset-0 z-10"><span class="sr-only">Baca selengkapnya</span></a>
             <img src="https://images.unsplash.com/photo-1581092160607-ee22621dd758?w=600&q=70" class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
             <div class="gradient-overlay-sm absolute inset-0"></div>
-            <div class="relative z-10 h-full flex flex-col justify-end p-4">
-                <a href="/kategori" class="text-xs text-pens-light font-semibold hover:text-white transition-colors">Riset</a>
-                <h3 class="text-sm font-semibold text-white line-clamp-2">Mahasiswa PENS Kembangkan Robot Pendeteksi Bencana Berbasis AI</h3>
+            <div class="relative h-full flex flex-col justify-end p-4">
+                <a href="/kategori" class="text-xs text-pens-light font-semibold hover:text-white transition-colors relative z-20">Riset</a>
+                <h3 class="text-sm font-semibold text-white line-clamp-2 relative z-0">Mahasiswa PENS Kembangkan Robot Pendeteksi Bencana Berbasis AI</h3>
             </div>
-        </a>
-        <a href="/berita/detail" class="group relative rounded-xl overflow-hidden h-28 block">
+        </div>
+        <div class="group relative rounded-xl overflow-hidden h-28 block">
+            <a href="/berita/detail" class="absolute inset-0 z-10"><span class="sr-only">Baca selengkapnya</span></a>
             <img src="https://images.unsplash.com/photo-1523580494863-6f3031224c94?w=600&q=70" class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
             <div class="gradient-overlay-sm absolute inset-0"></div>
-            <div class="relative z-10 h-full flex flex-col justify-end p-4">
-                <a href="/kategori" class="text-xs text-pens-light font-semibold hover:text-white transition-colors">Prestasi</a>
-                <h3 class="text-sm font-semibold text-white line-clamp-2">Tim PENS Juara Kompetisi IoT Nasional 2026</h3>
+            <div class="relative h-full flex flex-col justify-end p-4">
+                <a href="/kategori" class="text-xs text-pens-light font-semibold hover:text-white transition-colors relative z-20">Prestasi</a>
+                <h3 class="text-sm font-semibold text-white line-clamp-2 relative z-0">Tim PENS Juara Kompetisi IoT Nasional 2026</h3>
             </div>
-        </a>
+        </div>
     </div>
 </section>
 
@@ -79,21 +81,20 @@
             @endphp
 
             @foreach($latestNews as $news)
-            <article class="group bg-white rounded-2xl overflow-hidden shadow-sm border border-gray-100 news-card-hover">
-                <a href="/berita/detail" class="block">
-                    <div class="relative overflow-hidden aspect-[16/10]">
-                        <img src="{{ $news['img'] }}" alt="{{ $news['title'] }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
-                        <span class="category-badge {{ $news['color'] }} text-white absolute top-3 left-3">{{ $news['cat'] }}</span>
+            <article class="group relative bg-white rounded-2xl overflow-hidden shadow-sm border border-gray-100 news-card-hover">
+                <a href="/berita/detail" class="absolute inset-0 z-10"><span class="sr-only">Baca {{ $news['title'] }}</span></a>
+                <div class="relative overflow-hidden aspect-[16/10]">
+                    <img src="{{ $news['img'] }}" alt="{{ $news['title'] }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                    <span class="category-badge {{ $news['color'] }} text-white absolute top-3 left-3 z-20">{{ $news['cat'] }}</span>
+                </div>
+                <div class="p-5 relative">
+                    <h3 class="font-bold text-pens-navy leading-snug mb-2 group-hover:text-pens-cyan transition-colors line-clamp-2">{{ $news['title'] }}</h3>
+                    <p class="text-sm text-gray-500 leading-relaxed mb-4 line-clamp-2">{{ $news['desc'] }}</p>
+                    <div class="flex items-center justify-between text-xs text-gray-400">
+                        <span>{{ $news['author'] }}</span>
+                        <span>{{ $news['date'] }}</span>
                     </div>
-                    <div class="p-5">
-                        <h3 class="font-bold text-pens-navy leading-snug mb-2 group-hover:text-pens-cyan transition-colors line-clamp-2">{{ $news['title'] }}</h3>
-                        <p class="text-sm text-gray-500 leading-relaxed mb-4 line-clamp-2">{{ $news['desc'] }}</p>
-                        <div class="flex items-center justify-between text-xs text-gray-400">
-                            <span>{{ $news['author'] }}</span>
-                            <span>{{ $news['date'] }}</span>
-                        </div>
-                    </div>
-                </a>
+                </div>
             </article>
             @endforeach
         </div>
@@ -177,29 +178,31 @@
 
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
             {{-- Featured Popular --}}
-            <a href="/berita/detail" class="group md:col-span-1 md:row-span-2 relative rounded-2xl overflow-hidden min-h-[400px] block">
+            <div class="group md:col-span-1 md:row-span-2 relative rounded-2xl overflow-hidden min-h-[400px] flex">
+                <a href="/berita/detail" class="absolute inset-0 z-10"><span class="sr-only">Baca {{ $popular[0]['title'] }}</span></a>
                 <img src="{{ $popular[0]['img'] }}" class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
                 <div class="gradient-overlay absolute inset-0"></div>
-                <div class="relative z-10 h-full flex flex-col justify-end p-6">
-                    <a href="/kategori" class="category-badge {{ $popular[0]['color'] }} text-white mb-3 w-fit hover:brightness-110 transition-all">{{ $popular[0]['cat'] }}</a>
-                    <h3 class="text-xl font-bold text-white mb-2 group-hover:text-pens-light transition-colors">{{ $popular[0]['title'] }}</h3>
-                    <p class="text-sm text-gray-300 line-clamp-2 mb-3">{{ $popular[0]['desc'] }}</p>
-                    <div class="flex items-center gap-3 text-xs text-gray-400">
+                <div class="relative h-full flex flex-col justify-end p-6 w-full">
+                    <a href="/kategori" class="category-badge {{ $popular[0]['color'] }} text-white mb-3 w-fit hover:brightness-110 transition-all relative z-20">{{ $popular[0]['cat'] }}</a>
+                    <h3 class="text-xl font-bold text-white mb-2 group-hover:text-pens-light transition-colors relative z-0">{{ $popular[0]['title'] }}</h3>
+                    <p class="text-sm text-gray-300 line-clamp-2 mb-3 relative z-0">{{ $popular[0]['desc'] }}</p>
+                    <div class="flex items-center gap-3 text-xs text-gray-400 relative z-0">
                         <span>{{ $popular[0]['author'] }}</span>
                         <span>&bull;</span>
                         <span>{{ $popular[0]['date'] }}</span>
                     </div>
                 </div>
-            </a>
+            </div>
 
             {{-- Other Popular --}}
             @foreach(array_slice($popular, 1) as $news)
-            <article class="group bg-pens-gray rounded-2xl overflow-hidden border border-gray-100 news-card-hover flex flex-col sm:flex-row md:flex-col">
+            <article class="group relative bg-pens-gray rounded-2xl overflow-hidden border border-gray-100 news-card-hover flex flex-col sm:flex-row md:flex-col">
+                <a href="/berita/detail" class="absolute inset-0 z-10"><span class="sr-only">Baca {{ $news['title'] }}</span></a>
                 <div class="relative overflow-hidden aspect-[16/10] sm:w-48 sm:aspect-auto md:w-full md:aspect-[16/10] flex-shrink-0">
                     <img src="{{ $news['img'] }}" alt="{{ $news['title'] }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
-                    <a href="/kategori" class="category-badge {{ $news['color'] }} text-white absolute top-3 left-3 hover:brightness-110 transition-all">{{ $news['cat'] }}</a>
+                    <a href="/kategori" class="category-badge {{ $news['color'] }} text-white absolute top-3 left-3 hover:brightness-110 transition-all z-20">{{ $news['cat'] }}</a>
                 </div>
-                <div class="p-5 flex flex-col justify-center">
+                <div class="p-5 flex flex-col justify-center relative">
                     <h3 class="font-bold text-pens-navy leading-snug mb-2 group-hover:text-pens-cyan transition-colors line-clamp-2">{{ $news['title'] }}</h3>
                     <p class="text-sm text-gray-500 leading-relaxed mb-3 line-clamp-2">{{ $news['desc'] }}</p>
                     <div class="flex items-center gap-3 text-xs text-gray-400">
