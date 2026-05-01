@@ -116,7 +116,7 @@
     </nav>
 
     {{-- MAIN CONTENT — desktop offset 88px (navbar height), mobile 56px --}}
-    <main style="padding-top:56px;" class="md:pt-0">
+    <main class="md:pt-0">
         <div class="hidden md:block" style="height:88px;"></div>
         @yield('content')
     </main>
