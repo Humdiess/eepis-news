@@ -23,12 +23,12 @@
                     <input type="text" placeholder="Cari judul berita..." class="bg-transparent border-none text-sm text-gray-600 placeholder-gray-400 focus:ring-0 focus:outline-none w-full p-0">
                 </div>
             </div>
-            <select x-model="status" class="px-4 py-2.5 bg-gray-50 border border-gray-100 rounded-xl text-sm text-gray-600 focus:ring-2 focus:ring-pens-cyan/30 focus:border-pens-cyan">
+            <select x-model="status" class="pl-4 pr-10 py-2.5 bg-gray-50 border border-gray-100 rounded-xl text-sm text-gray-600 focus:ring-2 focus:ring-pens-cyan/30 focus:border-pens-cyan">
                 <option value="all">Semua Status</option>
                 <option value="published">Published</option>
                 <option value="archived">Archived</option>
             </select>
-            <select x-model="category" class="px-4 py-2.5 bg-gray-50 border border-gray-100 rounded-xl text-sm text-gray-600 focus:ring-2 focus:ring-pens-cyan/30 focus:border-pens-cyan">
+            <select x-model="category" class="pl-4 pr-10 py-2.5 bg-gray-50 border border-gray-100 rounded-xl text-sm text-gray-600 focus:ring-2 focus:ring-pens-cyan/30 focus:border-pens-cyan">
                 <option value="all">Semua Kategori</option>
                 <option value="akademik">Akademik</option>
                 <option value="teknologi">Teknologi</option>
