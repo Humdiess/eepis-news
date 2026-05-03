@@ -5,9 +5,8 @@
     'actionLabel' => 'Lihat Semua',
 ])
 
-<div class="flex items-center justify-between mb-6">
+<div class="flex items-center justify-between">
     <div class="flex items-center gap-3">
-        <div class="w-1.5 h-8 bg-gradient-to-b from-pens-cyan to-pens-blue rounded-full"></div>
         <h2 class="text-xl font-bold text-pens-navy">{{ $title }}</h2>
     </div>
     @if($action)
