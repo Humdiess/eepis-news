@@ -33,7 +33,7 @@
                     <label class="block text-sm font-semibold text-pens-navy mb-2">Slug</label>
                     <div class="flex items-center gap-2 px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl">
                         <span class="text-xs text-gray-400 flex-shrink-0">eepis.news/</span>
-                        <input type="text" x-model="slug" class="bg-transparent border-none text-sm text-gray-600 focus:ring-0 w-full p-0" placeholder="auto-generated-slug">
+                        <input type="text" x-model="slug" readonly class="bg-transparent border-none text-sm text-gray-600 focus:ring-0 w-full p-0" placeholder="auto-generated-slug">
                     </div>
                 </div>
                 <div>
@@ -85,13 +85,6 @@
                     Pengaturan
                 </h3>
                 <div class="space-y-4">
-                    <div>
-                        <label class="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5">Status</label>
-                        <select x-model="status" class="w-full px-3 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm focus:ring-2 focus:ring-pens-cyan/30 focus:border-pens-cyan">
-                            <option value="published">Published</option>
-                            <option value="archived">Archived</option>
-                        </select>
-                    </div>
                     <div>
                         <label class="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5">Kategori</label>
                         <select x-model="category" class="w-full px-3 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm focus:ring-2 focus:ring-pens-cyan/30 focus:border-pens-cyan">
