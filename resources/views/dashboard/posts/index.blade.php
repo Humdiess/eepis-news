@@ -47,6 +47,7 @@
                 <thead>
                     <tr class="bg-gray-50/50 border-b border-gray-100">
                         <th class="text-left text-xs font-semibold text-gray-400 uppercase tracking-wider px-6 py-4">Berita</th>
+                        <th class="text-left text-xs font-semibold text-gray-400 uppercase tracking-wider px-6 py-4">Penulis</th>
                         <th class="text-left text-xs font-semibold text-gray-400 uppercase tracking-wider px-6 py-4 hidden md:table-cell">Kategori</th>
                         <th class="text-left text-xs font-semibold text-gray-400 uppercase tracking-wider px-6 py-4 hidden sm:table-cell">Status</th>
                         <th class="text-left text-xs font-semibold text-gray-400 uppercase tracking-wider px-6 py-4 hidden lg:table-cell">Tanggal</th>
@@ -74,9 +75,12 @@
                                     <img src="{{ $post['thumb'] }}" alt="" class="w-16 h-11 rounded-lg object-cover flex-shrink-0 hidden sm:block ring-1 ring-gray-100">
                                     <div class="min-w-0">
                                         <p class="text-sm font-semibold text-pens-navy truncate max-w-xs group-hover:text-pens-cyan transition-colors">{{ $post['title'] }}</p>
-                                        <p class="text-xs text-gray-400 mt-0.5">oleh {{ $post['author'] }}</p>
+                                        <p class="text-xs text-gray-400 sm:hidden mt-0.5">{{ $post['category'] }} • {{ $post['date'] }}</p>
                                     </div>
                                 </div>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600 font-medium">
+                                {{ $post['author'] }}
                             </td>
                             <td class="px-6 py-4 hidden md:table-cell">
                                 <x-dashboard.badge :type="$post['category']" variant="category" />
