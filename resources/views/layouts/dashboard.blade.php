@@ -36,7 +36,7 @@
         />
 
         {{-- Content --}}
-        <main class="flex-1 p-4 sm:p-6 lg:p-8 pl-72 overflow-y-auto">
+        <main class="flex-1 p-4 sm:p-6 lg:p-8 overflow-y-auto">
             {{ $slot }}
         </main>
 
