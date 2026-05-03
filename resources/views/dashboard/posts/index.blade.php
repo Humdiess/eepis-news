@@ -23,11 +23,6 @@
                     <input type="text" placeholder="Cari judul berita..." class="bg-transparent border-none text-sm text-gray-600 placeholder-gray-400 focus:ring-0 focus:outline-none w-full p-0">
                 </div>
             </div>
-            <select x-model="status" class="pl-4 pr-10 py-2.5 bg-gray-50 border border-gray-100 rounded-xl text-sm text-gray-600 focus:ring-2 focus:ring-pens-cyan/30 focus:border-pens-cyan">
-                <option value="all">Semua Status</option>
-                <option value="published">Published</option>
-                <option value="archived">Archived</option>
-            </select>
             <select x-model="category" class="pl-4 pr-10 py-2.5 bg-gray-50 border border-gray-100 rounded-xl text-sm text-gray-600 focus:ring-2 focus:ring-pens-cyan/30 focus:border-pens-cyan">
                 <option value="all">Semua Kategori</option>
                 <option value="akademik">Akademik</option>
@@ -49,7 +44,6 @@
                         <th class="text-left text-xs font-semibold text-gray-400 uppercase tracking-wider px-6 py-4">Berita</th>
                         <th class="text-left text-xs font-semibold text-gray-400 uppercase tracking-wider px-6 py-4">Penulis</th>
                         <th class="text-left text-xs font-semibold text-gray-400 uppercase tracking-wider px-6 py-4 hidden md:table-cell">Kategori</th>
-                        <th class="text-left text-xs font-semibold text-gray-400 uppercase tracking-wider px-6 py-4 hidden sm:table-cell">Status</th>
                         <th class="text-left text-xs font-semibold text-gray-400 uppercase tracking-wider px-6 py-4 hidden lg:table-cell">Tanggal</th>
                         <th class="text-right text-xs font-semibold text-gray-400 uppercase tracking-wider px-6 py-4">Aksi</th>
                     </tr>
@@ -84,9 +78,6 @@
                             </td>
                             <td class="px-6 py-4 hidden md:table-cell">
                                 <x-dashboard.badge :type="$post['category']" variant="category" />
-                            </td>
-                            <td class="px-6 py-4 hidden sm:table-cell">
-                                <x-dashboard.badge :type="$post['status']" variant="status" />
                             </td>
                             <td class="px-6 py-4 text-sm text-gray-400 hidden lg:table-cell whitespace-nowrap">
                                 {{ $post['date'] }}
