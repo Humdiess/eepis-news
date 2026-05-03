@@ -12,37 +12,44 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
-    {{-- Vite Assets --}}
+    {{-- Vite --}}
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
     @stack('styles')
 </head>
+
 <body class="font-sans antialiased bg-pens-gray text-gray-700">
-    <div x-data="{ sidebarOpen: false }" class="flex min-h-screen">
-        {{-- Sidebar --}}
-        <x-dashboard.sidebar :role="$role ?? 'admin'" />
 
-        {{-- Main Content --}}
-        <div class="flex-1 flex flex-col min-w-0">
-            {{-- Top Bar --}}
-            <x-dashboard.topbar
-                :title="$pageTitle ?? 'Dashboard'"
-                :userName="$userName ?? 'Ahmad Fauzi'"
-                :userRole="($role ?? 'admin') === 'admin' ? 'Admin' : 'Penulis'"
-            />
+<div x-data="{ sidebarOpen: false }" class="min-h-screen">
 
-            {{-- Page Content --}}
-            <main class="flex-1 p-4 sm:p-6 lg:p-8">
-                {{ $slot }}
-            </main>
+    {{-- Sidebar --}}
+    <x-dashboard.sidebar :role="$role ?? 'admin'" />
 
-            {{-- Footer --}}
-            <footer class="px-6 py-4 border-t border-gray-100 text-center">
-                <p class="text-xs text-gray-400">&copy; {{ date('Y') }} EEPIS News — Politeknik Elektronika Negeri Surabaya</p>
-            </footer>
-        </div>
+    {{-- Main Content --}}
+    <div class="lg:ml-72 flex flex-col min-h-screen">
+
+        {{-- Topbar --}}
+        <x-dashboard.topbar
+            :title="$pageTitle ?? 'Dashboard'"
+            :userName="$userName ?? 'Ahmad Fauzi'"
+            :userRole="($role ?? 'admin') === 'admin' ? 'Admin' : 'Penulis'"
+        />
+
+        {{-- Content --}}
+        <main class="flex-1 p-4 sm:p-6 lg:p-8 pl-72 overflow-y-auto">
+            {{ $slot }}
+        </main>
+
+        {{-- Footer --}}
+        <footer class="px-6 py-4 border-t border-gray-100 text-center">
+            <p class="text-xs text-gray-400">
+                &copy; {{ date('Y') }} EEPIS News — Politeknik Elektronika Negeri Surabaya
+            </p>
+        </footer>
+
     </div>
+</div>
 
-    @stack('scripts')
+@stack('scripts')
 </body>
 </html>
