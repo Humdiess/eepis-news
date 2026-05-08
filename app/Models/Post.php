@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\Attributes\Fillable;
     'category_id',
     'title',
     'slug',
-    'content'
+    'content',
     'video'
 ])]
 
