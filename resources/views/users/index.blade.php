@@ -13,9 +13,15 @@
 </form>
 
 <hr>
+<a href="{{ route('users.create') }}">
+    Tambah User
+</a>
 
+<hr>
 @foreach($users as $user)
-
+<a href="{{ route('users.edit', $user->id) }}">
+    Edit
+</a>
     <p>
 
         {{ $user->name }}
