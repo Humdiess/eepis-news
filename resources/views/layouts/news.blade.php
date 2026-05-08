@@ -50,14 +50,9 @@
                         {{-- Category links --}}
                         <div style="display:flex;align-items:center;gap:0;overflow-x:auto;scrollbar-width:none;">
                             <a href="/" style="padding:0 12px;font-size:11px;font-weight:600;color:#38BDF8;text-transform:uppercase;letter-spacing:0.07em;white-space:nowrap;text-decoration:none;border-bottom:2px solid #0EA5E9;padding-bottom:2px;">Beranda</a>
-                            <a href="/kategori" style="padding:0 12px;font-size:11px;font-weight:500;color:#94a3b8;text-transform:uppercase;letter-spacing:0.07em;white-space:nowrap;text-decoration:none;border-bottom:2px solid transparent;padding-bottom:2px;" onmouseover="this.style.color='#38BDF8'" onmouseout="this.style.color='#94a3b8'">Akademik</a>
-                            <a href="/kategori" style="padding:0 12px;font-size:11px;font-weight:500;color:#94a3b8;text-transform:uppercase;letter-spacing:0.07em;white-space:nowrap;text-decoration:none;border-bottom:2px solid transparent;padding-bottom:2px;" onmouseover="this.style.color='#38BDF8'" onmouseout="this.style.color='#94a3b8'">Riset</a>
-                            <a href="/kategori" style="padding:0 12px;font-size:11px;font-weight:500;color:#94a3b8;text-transform:uppercase;letter-spacing:0.07em;white-space:nowrap;text-decoration:none;border-bottom:2px solid transparent;padding-bottom:2px;" onmouseover="this.style.color='#38BDF8'" onmouseout="this.style.color='#94a3b8'">Prestasi</a>
-                            <a href="/kategori" style="padding:0 12px;font-size:11px;font-weight:500;color:#94a3b8;text-transform:uppercase;letter-spacing:0.07em;white-space:nowrap;text-decoration:none;border-bottom:2px solid transparent;padding-bottom:2px;" onmouseover="this.style.color='#38BDF8'" onmouseout="this.style.color='#94a3b8'">Kegiatan</a>
-                            <a href="/kategori" style="padding:0 12px;font-size:11px;font-weight:500;color:#94a3b8;text-transform:uppercase;letter-spacing:0.07em;white-space:nowrap;text-decoration:none;border-bottom:2px solid transparent;padding-bottom:2px;" onmouseover="this.style.color='#38BDF8'" onmouseout="this.style.color='#94a3b8'">Opini</a>
-                            <a href="/kategori" style="padding:0 12px;font-size:11px;font-weight:500;color:#94a3b8;text-transform:uppercase;letter-spacing:0.07em;white-space:nowrap;text-decoration:none;border-bottom:2px solid transparent;padding-bottom:2px;" onmouseover="this.style.color='#38BDF8'" onmouseout="this.style.color='#94a3b8'">Pengumuman</a>
-                            <a href="/kategori" style="padding:0 12px;font-size:11px;font-weight:500;color:#94a3b8;text-transform:uppercase;letter-spacing:0.07em;white-space:nowrap;text-decoration:none;border-bottom:2px solid transparent;padding-bottom:2px;" onmouseover="this.style.color='#38BDF8'" onmouseout="this.style.color='#94a3b8'">Beasiswa</a>
-                            <a href="/kategori" style="padding:0 12px;font-size:11px;font-weight:500;color:#94a3b8;text-transform:uppercase;letter-spacing:0.07em;white-space:nowrap;text-decoration:none;border-bottom:2px solid transparent;padding-bottom:2px;" onmouseover="this.style.color='#38BDF8'" onmouseout="this.style.color='#94a3b8'">Alumni</a>
+                            @foreach($navCategories as $cat)
+                            <a href="{{ route('news.category', $cat->slug) }}" style="padding:0 12px;font-size:11px;font-weight:500;color:#94a3b8;text-transform:uppercase;letter-spacing:0.07em;white-space:nowrap;text-decoration:none;border-bottom:2px solid transparent;padding-bottom:2px;" onmouseover="this.style.color='#38BDF8'" onmouseout="this.style.color='#94a3b8'">{{ $cat->name }}</a>
+                            @endforeach
                         </div>
                     </div>
                 </div>
@@ -99,13 +94,9 @@
                 </form>
                 <div style="display:flex;flex-direction:column;border-top:1px solid rgba(255,255,255,0.06);">
                     <a href="/" style="padding:10px 8px;font-size:14px;font-weight:600;color:#fff;text-decoration:none;border-bottom:1px solid rgba(255,255,255,0.06);">Beranda</a>
-                    <a href="/kategori" style="padding:10px 8px;font-size:14px;color:#94a3b8;text-decoration:none;border-bottom:1px solid rgba(255,255,255,0.06);">Akademik</a>
-                    <a href="/kategori" style="padding:10px 8px;font-size:14px;color:#94a3b8;text-decoration:none;border-bottom:1px solid rgba(255,255,255,0.06);">Riset</a>
-                    <a href="/kategori" style="padding:10px 8px;font-size:14px;color:#94a3b8;text-decoration:none;border-bottom:1px solid rgba(255,255,255,0.06);">Prestasi</a>
-                    <a href="/kategori" style="padding:10px 8px;font-size:14px;color:#94a3b8;text-decoration:none;border-bottom:1px solid rgba(255,255,255,0.06);">Kegiatan</a>
-                    <a href="/kategori" style="padding:10px 8px;font-size:14px;color:#94a3b8;text-decoration:none;border-bottom:1px solid rgba(255,255,255,0.06);">Opini</a>
-                    <a href="/kategori" style="padding:10px 8px;font-size:14px;color:#94a3b8;text-decoration:none;border-bottom:1px solid rgba(255,255,255,0.06);">Pengumuman</a>
-                    <a href="/kategori" style="padding:10px 8px;font-size:14px;color:#94a3b8;text-decoration:none;">Alumni</a>
+                    @foreach($navCategories as $cat)
+                    <a href="{{ route('news.category', $cat->slug) }}" style="padding:10px 8px;font-size:14px;color:#94a3b8;text-decoration:none;border-bottom:1px solid rgba(255,255,255,0.06);">{{ $cat->name }}</a>
+                    @endforeach
                 </div>
                 <a href="#" style="display:flex;align-items:center;justify-content:center;height:42px;background:#0EA5E9;border-radius:8px;font-size:13px;font-weight:700;color:#fff;text-decoration:none;text-transform:uppercase;letter-spacing:0.05em;">
                     Permohonan Liputan

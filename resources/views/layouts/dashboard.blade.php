@@ -23,7 +23,7 @@
 <div x-data="{ sidebarOpen: false }" class="min-h-screen">
 
     {{-- Sidebar --}}
-    <x-dashboard.sidebar :role="$role ?? 'admin'" />
+    <x-dashboard.sidebar :role="auth()->user()->role" />
 
     {{-- Main Content --}}
     <div class="lg:ml-72 flex flex-col min-h-screen">
@@ -31,8 +31,8 @@
         {{-- Topbar --}}
         <x-dashboard.topbar
             :title="$pageTitle ?? 'Dashboard'"
-            :userName="$userName ?? 'Ahmad Fauzi'"
-            :userRole="($role ?? 'admin') === 'admin' ? 'Admin' : 'Penulis'"
+            :userName="auth()->user()->name ?? 'Guest'"
+            :userRole="(auth()->user()->role ?? 'admin') === 'admin' ? 'Admin' : 'Penulis'"
         />
 
         {{-- Content --}}
