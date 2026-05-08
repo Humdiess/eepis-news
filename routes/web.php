@@ -35,9 +35,7 @@ Route::get('/dashboard/posts/create', function () {
     return view('dashboard.posts.create');
 })->name('dashboard.posts.create');
 
-Route::get('/dashboard/categories', function () {
-    return view('dashboard.categories.index');
-})->name('dashboard.categories.index');
+Route::get('/dashboard/categories', [CategoryController::class, 'index'])->name('dashboard.categories.index');
 
 Route::get('/dashboard/users', function () {
     return view('dashboard.users.index');
@@ -52,7 +50,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-     Route::resource('categories', CategoryController::class);
+    Route::resource('categories', CategoryController::class);
 });
 
 Route::middleware(['auth', 'role:admin'])->group(function () {

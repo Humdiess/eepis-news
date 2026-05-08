@@ -17,23 +17,14 @@ class CategoryController extends Controller
     {
         $search = $request->search;
 
-        $categories = Category::when($search, function($query) use ($search){
+        $categories = Category::withCount('posts')
+            ->when($search, function($query) use ($search){
+                $query->where('name', 'like', "%{$search}%");
+            })
+            ->latest()
+            ->paginate(10);
 
-            $query->where('name', 'like', "%{$search}%");
-
-        })
-        ->latest()
-        ->paginate(5);
-
-        return view('categories.index', compact('categories'));
-    }
-
-    /**
-     * Form create category
-     */
-    public function create()
-    {
-        return view('categories.create');
+        return view('dashboard.categories.index', compact('categories'));
     }
 
     /**
@@ -41,47 +32,35 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-
         $request->validate([
-            'name' => 'required'
+            'name' => 'required|string|max:255',
         ]);
 
         Category::create([
-
             'name' => $request->name,
-
-            'slug' => Str::slug($request->name)
-
+            'slug' => $request->slug ?: Str::slug($request->name),
         ]);
 
-        return redirect()->route('categories.index');
-    }
-        public function show(Category $category)
-            {
-    return view('categories.show', compact('category'));
-        }
-
-        public function edit(Category $category)
-    {
-    return view('categories.edit', compact('category'));
+        return redirect()->route('dashboard.categories.index')->with('success', 'Kategori berhasil ditambahkan!');
     }
 
+    /**
+     * Update category
+     */
     public function update(Request $request, Category $category)
-{
-    $request->validate([
-        'name' => 'required'
-    ]);
+    {
+        $request->validate([
+            'name' => 'required|string|max:255',
+        ]);
 
-    $category->update([
+        $category->update([
+            'name' => $request->name,
+            'slug' => $request->slug ?: Str::slug($request->name),
+        ]);
 
-        'name' => $request->name,
+        return redirect()->route('dashboard.categories.index')->with('success', 'Kategori berhasil diperbarui!');
+    }
 
-        'slug' => Str::slug($request->name)
-
-    ]);
-
-    return redirect()->route('categories.index');
-}
     /**
      * Hapus category
      */
@@ -89,6 +68,6 @@ class CategoryController extends Controller
     {
         $category->delete();
 
-        return back();
+        return redirect()->route('dashboard.categories.index')->with('success', 'Kategori berhasil dihapus!');
     }
 }
