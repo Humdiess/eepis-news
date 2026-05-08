@@ -10,29 +10,26 @@ class UserController extends Controller
 {
     /**
      * List user
+     * + search
+     * + pagination
      */
     public function index(Request $request)
     {
         $search = $request->search;
 
-        $users = User::when($search, function($query) use ($search){
+        $users = User::withCount('posts')
+            ->when($search, function($query) use ($search){
+                $query->where('name', 'like', "%{$search}%")
+                      ->orWhere('email', 'like', "%{$search}%");
+            })
+            ->latest()
+            ->paginate(10);
 
-            $query->where('name', 'like', "%{$search}%");
+        $totalUsers = User::count();
+        $totalAdmin = User::where('role', 'admin')->count();
+        $totalPenulis = User::where('role', 'penulis')->count();
 
-        })
-
-        ->latest()
-        ->paginate(5);
-
-        return view('users.index', compact('users'));
-    }
-
-    /**
-     * Form create user
-     */
-    public function create()
-    {
-        return view('users.create');
+        return view('dashboard.users.index', compact('users', 'totalUsers', 'totalAdmin', 'totalPenulis'));
     }
 
     /**
@@ -41,38 +38,20 @@ class UserController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-
-            'name' => 'required',
-
-            'email' => 'required|email|unique:users',
-
+            'name'     => 'required|string|max:255',
+            'email'    => 'required|email|unique:users',
             'password' => 'required|min:6',
-
-            'role' => 'required'
-
+            'role'     => 'required|in:admin,penulis',
         ]);
 
         User::create([
-
-            'name' => $request->name,
-
-            'email' => $request->email,
-
+            'name'     => $request->name,
+            'email'    => $request->email,
             'password' => Hash::make($request->password),
-
-            'role' => $request->role
-
+            'role'     => $request->role,
         ]);
 
-        return redirect()->route('users.index');
-    }
-
-    /**
-     * Form edit user
-     */
-    public function edit(User $user)
-    {
-        return view('users.edit', compact('user'));
+        return redirect()->route('dashboard.users.index')->with('success', 'Pengguna berhasil ditambahkan!');
     }
 
     /**
@@ -81,26 +60,24 @@ class UserController extends Controller
     public function update(Request $request, User $user)
     {
         $request->validate([
-
-            'name' => 'required',
-
-            'email' => 'required|email',
-
-            'role' => 'required'
-
+            'name'  => 'required|string|max:255',
+            'email' => 'required|email|unique:users,email,' . $user->id,
+            'role'  => 'required|in:admin,penulis',
         ]);
 
-        $user->update([
-
-            'name' => $request->name,
-
+        $data = [
+            'name'  => $request->name,
             'email' => $request->email,
+            'role'  => $request->role,
+        ];
 
-            'role' => $request->role
+        if ($request->filled('password')) {
+            $data['password'] = Hash::make($request->password);
+        }
 
-        ]);
+        $user->update($data);
 
-        return redirect()->route('users.index');
+        return redirect()->route('dashboard.users.index')->with('success', 'Pengguna berhasil diperbarui!');
     }
 
     /**
@@ -110,6 +87,6 @@ class UserController extends Controller
     {
         $user->delete();
 
-        return back();
+        return redirect()->route('dashboard.users.index')->with('success', 'Pengguna berhasil dihapus!');
     }
 }

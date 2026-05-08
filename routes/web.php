@@ -37,9 +37,7 @@ Route::get('/dashboard/posts/create', function () {
 
 Route::get('/dashboard/categories', [CategoryController::class, 'index'])->name('dashboard.categories.index');
 
-Route::get('/dashboard/users', function () {
-    return view('dashboard.users.index');
-})->name('dashboard.users.index');
+Route::get('/dashboard/users', [UserController::class, 'index'])->name('dashboard.users.index');
 
 Route::get('/dashboard/profile', function () {
     return view('dashboard.profile.index');
