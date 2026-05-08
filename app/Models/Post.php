@@ -12,6 +12,7 @@ use Illuminate\Database\Eloquent\Attributes\Fillable;
     'title',
     'slug',
     'content',
+    'thumbnail',
     'video'
 ])]
 

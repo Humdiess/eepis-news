@@ -27,13 +27,9 @@ Route::get('/dashboard', function () {
     return view('dashboard.index');
 })->name('dashboard.index');
 
-Route::get('/dashboard/posts', function () {
-    return view('dashboard.posts.index');
-})->name('dashboard.posts.index');
+Route::get('/dashboard/posts', [PostController::class, 'index'])->name('dashboard.posts.index');
 
-Route::get('/dashboard/posts/create', function () {
-    return view('dashboard.posts.create');
-})->name('dashboard.posts.create');
+Route::get('/dashboard/posts/create', [PostController::class, 'create'])->name('dashboard.posts.create');
 
 Route::get('/dashboard/categories', [CategoryController::class, 'index'])->name('dashboard.categories.index');
 

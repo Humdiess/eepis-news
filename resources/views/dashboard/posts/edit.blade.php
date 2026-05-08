@@ -1,7 +1,9 @@
-<x-dashboard-layout :role="'admin'" :pageTitle="'Tulis Berita'" :title="'Tulis Berita'">
+<x-dashboard-layout :role="'admin'" :pageTitle="'Edit Berita'" :title="'Edit Berita'">
 <div x-data="{
-    title: '', slug: '', video: '',
-    thumbnailPreview: null,
+    title: '{{ addslashes($post->title) }}',
+    slug: '{{ $post->slug }}',
+    video: '{{ $post->video }}',
+    thumbnailPreview: {{ $post->thumbnail ? "'" . asset('storage/' . $post->thumbnail) . "'" : 'null' }},
     generateSlug() {
         this.slug = this.title.toLowerCase().replace(/[^a-z0-9\s-]/g, '').replace(/\s+/g, '-').replace(/-+/g, '-').trim();
     },
@@ -25,11 +27,12 @@
         <a href="{{ route('dashboard.posts.index') }}" class="p-2 text-gray-400 hover:text-pens-navy hover:bg-gray-100 rounded-xl transition-all">
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg>
         </a>
-        <x-dashboard.section-header title="Tulis Berita Baru" />
+        <x-dashboard.section-header title="Edit Berita" />
     </div>
 
-    <form id="post-form" action="{{ route('posts.store') }}" method="POST" enctype="multipart/form-data">
+    <form id="post-form" action="{{ route('posts.update', $post->id) }}" method="POST" enctype="multipart/form-data">
         @csrf
+        @method('PUT')
         <input type="hidden" id="content-input" name="content" value="">
 
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
@@ -81,7 +84,7 @@
                             <option value="p">Paragraph</option>
                         </select>
                     </div>
-                    <div id="content-editor" contenteditable="true" class="w-full min-h-[320px] px-4 py-4 bg-white border border-gray-200 rounded-b-xl text-sm text-gray-700 focus:ring-2 focus:ring-pens-cyan/30 focus:border-pens-cyan outline-none" style="line-height:1.8;"></div>
+                    <div id="content-editor" contenteditable="true" class="w-full min-h-[320px] px-4 py-4 bg-white border border-gray-200 rounded-b-xl text-sm text-gray-700 focus:ring-2 focus:ring-pens-cyan/30 focus:border-pens-cyan outline-none" style="line-height:1.8;">{!! $post->content !!}</div>
                     @error('content')
                         <p class="text-xs text-red-500 mt-1">{{ $message }}</p>
                     @enderror
@@ -102,7 +105,7 @@
                             <select name="category_id" class="w-full px-3 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm focus:ring-2 focus:ring-pens-cyan/30 focus:border-pens-cyan">
                                 <option value="">Pilih kategori</option>
                                 @foreach($categories as $category)
-                                    <option value="{{ $category->id }}">{{ $category->name }}</option>
+                                    <option value="{{ $category->id }}" {{ $post->category_id == $category->id ? 'selected' : '' }}>{{ $category->name }}</option>
                                 @endforeach
                             </select>
                             @error('category_id')
@@ -118,7 +121,7 @@
                         </div>
                     </div>
                     <div class="mt-6 pt-5 border-t border-gray-100">
-                        <button type="button" @click="submitForm()" class="w-full px-4 py-2.5 text-sm font-semibold text-white bg-blue-600 rounded-xl hover:shadow-lg hover:bg-blue-700 transition-all hover:-translate-y-0.5">Simpan Berita</button>
+                        <button type="button" @click="submitForm()" class="w-full px-4 py-2.5 text-sm font-semibold text-white bg-blue-600 rounded-xl hover:shadow-lg hover:bg-blue-700 transition-all hover:-translate-y-0.5">Simpan Perubahan</button>
                     </div>
                 </div>
 
@@ -145,13 +148,16 @@
                             <div class="w-12 h-12 rounded-xl bg-gray-100 group-hover:bg-pens-cyan/10 flex items-center justify-center mb-3 transition-colors">
                                 <svg class="w-6 h-6 text-gray-400 group-hover:text-pens-cyan transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"/></svg>
                             </div>
-                            <p class="text-sm text-gray-500 group-hover:text-pens-cyan font-medium">Klik untuk upload</p>
+                            <p class="text-sm text-gray-500 group-hover:text-pens-cyan font-medium">Klik untuk ganti thumbnail</p>
                             <p class="text-xs text-gray-400 mt-1">PNG, JPG, WebP maks. 2MB</p>
                         </div>
                     </div>
                     @error('thumbnail')
                         <p class="text-xs text-red-500 mt-2">{{ $message }}</p>
                     @enderror
+                    @if($post->thumbnail)
+                        <p class="text-xs text-gray-400 mt-2">Kosongkan jika tidak ingin mengganti thumbnail.</p>
+                    @endif
                 </div>
 
                 {{-- SEO Preview --}}
