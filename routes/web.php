@@ -3,26 +3,16 @@
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\NewsController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 
 
-Route::get('/', function () {
-    return view('news.index');
-});
-
-Route::get('/berita/detail', function () {
-    return view('news.show');
-});
-
-Route::get('/kategori', function () {
-    return view('news.category');
-});
-
-Route::get('/search', function () {
-    return view('news.search');
-});
+Route::get('/', [NewsController::class, 'index'])->name('news.index');
+Route::get('/berita/{post:slug}', [NewsController::class, 'show'])->name('news.show');
+Route::get('/kategori/{category:slug}', [NewsController::class, 'category'])->name('news.category');
+Route::get('/search', [NewsController::class, 'search'])->name('news.search');
 
 Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
 
