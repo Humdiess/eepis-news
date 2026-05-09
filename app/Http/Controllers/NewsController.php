@@ -18,7 +18,7 @@ class NewsController extends Controller
         $latestNews = Post::with(['user', 'category'])
             ->when($hero, fn($q) => $q->where('id', '!=', $hero->id))
             ->latest()
-            ->take(4)
+            ->take(9)
             ->get();
 
         $trending = Post::with('category')

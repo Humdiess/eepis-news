@@ -3,121 +3,124 @@
 
 @section('content')
 
-{{-- ========== HERO BANNER ========== --}}
-<div class="relative h-[70vh] min-h-[500px] overflow-hidden">
-    @if($post->thumbnail)
-        <img src="{{ asset('storage/' . $post->thumbnail) }}" alt="{{ $post->title }}" class="absolute inset-0 w-full h-full object-cover">
-    @else
-        <div class="absolute inset-0 bg-gradient-to-br from-pens-navy to-pens-blue"></div>
-    @endif
-    <div class="absolute inset-0 bg-gradient-to-t from-pens-navy via-pens-navy/60 to-transparent"></div>
+{{-- ========== ARTICLE ========== --}}
+<article class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
 
-    <div class="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 h-full flex flex-col justify-end pb-16 text-center">
-        <div class="flex items-center justify-center gap-3 mb-6">
+    {{-- Header --}}
+    <header class="pt-8 sm:pt-12 pb-6">
+        {{-- Breadcrumb --}}
+        <nav class="flex items-center gap-1.5 text-xs text-slate-400 mb-6">
+            <a href="/" class="hover:text-slate-700 transition-colors">Beranda</a>
             @if($post->category)
-                <a href="{{ route('news.category', $post->category->slug) }}" class="category-badge bg-pens-cyan text-white hover:bg-pens-blue transition-colors">{{ $post->category->name }}</a>
+                <svg class="w-3 h-3 text-slate-300" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5"/></svg>
+                <a href="{{ route('news.category', $post->category->slug) }}" class="text-sky-600 font-semibold uppercase tracking-wider hover:text-sky-700 transition-colors">{{ $post->category->name }}</a>
             @endif
-        </div>
-        <h1 class="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-extrabold text-white leading-tight mb-6">
+        </nav>
+
+        {{-- Title --}}
+        <h1 class="text-3xl sm:text-4xl lg:text-[2.75rem] font-extrabold text-slate-900 leading-[1.15] tracking-tight mb-6">
             {{ $post->title }}
         </h1>
-        <p class="text-gray-300 text-lg max-w-2xl mx-auto leading-relaxed">
-            {{ Str::limit(strip_tags($post->content), 160) }}
-        </p>
-    </div>
-</div>
 
-{{-- ========== AUTHOR BAR ========== --}}
-<div class="bg-white border-b border-gray-100 sticky top-16 z-40">
-    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-        <div class="flex items-center justify-between">
-            <div class="flex items-center gap-4">
-                <div class="w-11 h-11 rounded-full bg-gradient-to-br from-pens-cyan to-pens-blue flex items-center justify-center text-white text-sm font-bold shadow-lg shadow-pens-cyan/20">
-                    {{ strtoupper(substr($post->user->name ?? 'R', 0, 1)) }}
-                </div>
-                <div>
-                    <div class="text-sm font-bold text-pens-navy">{{ $post->user->name ?? 'Redaksi EEPIS' }}</div>
-                    <div class="text-xs text-gray-400">{{ $post->created_at->format('d F Y') }}</div>
-                </div>
+        {{-- Author bar --}}
+        <div class="flex items-center gap-3 pb-6 border-b border-slate-100">
+            <div class="w-10 h-10 rounded-full bg-sky-50 text-sky-600 flex items-center justify-center text-sm font-bold">
+                {{ strtoupper(substr($post->user->name ?? 'R', 0, 1)) }}
             </div>
-
-            <div class="flex items-center gap-2">
-                <button class="w-9 h-9 rounded-full bg-gray-50 hover:bg-pens-cyan hover:text-white text-gray-400 flex items-center justify-center transition-all duration-300 border border-gray-100 hover:border-pens-cyan">
-                    <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
-                </button>
-                <button class="w-9 h-9 rounded-full bg-gray-50 hover:bg-pens-cyan hover:text-white text-gray-400 flex items-center justify-center transition-all duration-300 border border-gray-100 hover:border-pens-cyan">
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.19 8.688a4.5 4.5 0 011.242 7.244l-4.5 4.5a4.5 4.5 0 01-6.364-6.364l1.757-1.757m13.35-.622l1.757-1.757a4.5 4.5 0 00-6.364-6.364l-4.5 4.5a4.5 4.5 0 001.242 7.244"/></svg>
-                </button>
+            <div>
+                <div class="text-sm font-semibold text-slate-800">{{ $post->user->name ?? 'Redaksi EEPIS' }}</div>
+                <div class="text-xs text-slate-400">{{ $post->created_at->translatedFormat('d F Y') }} · {{ ceil(str_word_count(strip_tags($post->content)) / 200) }} menit baca</div>
             </div>
         </div>
-    </div>
-</div>
+    </header>
 
-{{-- ========== ARTICLE CONTENT ========== --}}
-<article class="bg-white">
-    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
-        <div class="prose prose-lg max-w-none text-gray-600 leading-relaxed
-            prose-headings:text-pens-navy prose-headings:font-extrabold
-            prose-a:text-pens-cyan prose-a:no-underline hover:prose-a:underline
-            prose-img:rounded-2xl prose-img:shadow-lg
-            prose-blockquote:border-l-pens-cyan prose-blockquote:text-pens-navy prose-blockquote:font-semibold">
-            {!! $post->content !!}
+    {{-- Thumbnail --}}
+    @if($post->thumbnail)
+    <figure class="mb-8">
+        <div class="rounded-2xl overflow-hidden">
+            <img src="{{ asset('storage/' . $post->thumbnail) }}" alt="{{ $post->title }}" class="w-full">
         </div>
+    </figure>
+    @endif
 
-        {{-- Video YouTube --}}
-        @if($post->video)
-        <div class="mt-10">
-            <h3 class="text-xl font-bold text-pens-navy mb-4">Video Liputan</h3>
-            @php
-                preg_match('/(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/embed\/)([a-zA-Z0-9_-]+)/', $post->video, $matches);
-                $videoId = $matches[1] ?? null;
-            @endphp
-            @if($videoId)
-                <div class="aspect-video rounded-2xl overflow-hidden shadow-lg">
-                    <iframe src="https://www.youtube.com/embed/{{ $videoId }}" class="w-full h-full" frameborder="0" allowfullscreen></iframe>
-                </div>
-            @else
-                <a href="{{ $post->video }}" target="_blank" class="inline-flex items-center gap-2 text-pens-cyan hover:text-pens-blue font-medium">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
-                    Tonton Video
-                </a>
+    {{-- Content --}}
+    <div class="prose prose-slate prose-lg max-w-none
+        prose-headings:font-extrabold prose-headings:tracking-tight
+        prose-h2:text-2xl prose-h2:mt-10 prose-h2:mb-4
+        prose-h3:text-xl prose-h3:mt-8 prose-h3:mb-3
+        prose-p:leading-[1.9] prose-p:text-slate-600
+        prose-a:text-sky-600 prose-a:no-underline hover:prose-a:underline prose-a:font-medium
+        prose-img:rounded-2xl
+        prose-blockquote:border-l-[3px] prose-blockquote:border-sky-400 prose-blockquote:bg-sky-50/50 prose-blockquote:rounded-r-xl prose-blockquote:py-3 prose-blockquote:px-5 prose-blockquote:text-slate-600 prose-blockquote:not-italic prose-blockquote:font-normal
+        prose-strong:text-slate-800 prose-strong:font-semibold
+        prose-li:text-slate-600">
+        {!! $post->content !!}
+    </div>
+
+    {{-- Video --}}
+    @if($post->video)
+    <div class="mt-10 pt-8 border-t border-slate-100">
+        <h3 class="text-sm font-bold text-slate-800 mb-4 flex items-center gap-2">
+            <svg class="w-5 h-5 text-red-500" fill="currentColor" viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 00-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 00.502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 002.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 002.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814z"/><path fill="#fff" d="M9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+            Video Liputan
+        </h3>
+        @php
+            preg_match('/(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/embed\/)([a-zA-Z0-9_-]+)/', $post->video, $matches);
+            $videoId = $matches[1] ?? null;
+        @endphp
+        @if($videoId)
+            <div class="aspect-video rounded-2xl overflow-hidden bg-slate-100">
+                <iframe src="https://www.youtube.com/embed/{{ $videoId }}" class="w-full h-full" frameborder="0" allowfullscreen loading="lazy"></iframe>
+            </div>
+        @else
+            <a href="{{ $post->video }}" target="_blank" class="inline-flex items-center gap-2 text-sm text-sky-600 hover:text-sky-700 font-medium transition-colors">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"/></svg>
+                Tonton Video
+            </a>
+        @endif
+    </div>
+    @endif
+
+    {{-- Share --}}
+    <div class="mt-8 pt-6 border-t border-slate-100 flex items-center justify-between">
+        <div class="flex items-center gap-2">
+            @if($post->category)
+            <a href="{{ route('news.category', $post->category->slug) }}" class="px-3 py-1 text-xs font-medium text-slate-500 bg-slate-50 rounded-lg border border-slate-100 hover:border-sky-200 hover:text-sky-600 transition-all">{{ $post->category->name }}</a>
             @endif
         </div>
-        @endif
+        <button onclick="navigator.share?.({title: '{{ addslashes($post->title) }}', url: window.location.href}).catch(()=>{})" class="inline-flex items-center gap-1.5 text-xs font-medium text-slate-400 hover:text-sky-600 transition-colors">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M7.217 10.907a2.25 2.25 0 100 2.186m0-2.186c.18.324.283.696.283 1.093s-.103.77-.283 1.093m0-2.186l9.566-5.314m-9.566 7.5l9.566 5.314m0 0a2.25 2.25 0 103.935 2.186 2.25 2.25 0 00-3.935-2.186zm0-12.814a2.25 2.25 0 103.933-2.185 2.25 2.25 0 00-3.933 2.185z"/></svg>
+            Bagikan
+        </button>
     </div>
 </article>
 
-{{-- ========== RELATED NEWS ========== --}}
+{{-- ========== RELATED ========== --}}
 @if($related->count() > 0)
-<section class="bg-pens-gray py-16 border-t border-gray-100">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="flex items-center gap-3 mb-10">
-            <div class="w-1.5 h-8 bg-gradient-to-b from-pens-cyan to-pens-blue rounded-full"></div>
-            <h2 class="text-2xl font-bold text-pens-navy">Baca Juga</h2>
-        </div>
-
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+<section class="border-t border-slate-100 mt-10">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-12">
+        <h3 class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-7 flex items-center gap-2">
+            <span class="w-5 h-[2px] bg-sky-500"></span>
+            Baca Juga
+        </h3>
+        <div class="grid grid-cols-2 lg:grid-cols-4 gap-5 sm:gap-6">
             @foreach($related as $item)
-            <div class="card-container group relative flex flex-col h-full bg-white rounded-2xl overflow-hidden shadow-sm border border-gray-100 news-card-hover">
-                <a href="{{ route('news.show', $item->slug) }}" class="absolute inset-0 z-10" aria-label="Baca selengkapnya: {{ $item->title }}"></a>
-                <div class="card-image relative overflow-hidden h-[200px] shrink-0">
+            <a href="{{ route('news.show', $item->slug) }}" class="group block">
+                <div class="rounded-xl overflow-hidden aspect-[3/2] mb-3 bg-slate-100">
                     @if($item->thumbnail)
-                        <img src="{{ asset('storage/' . $item->thumbnail) }}" alt="{{ $item->title }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                        <img src="{{ asset('storage/' . $item->thumbnail) }}" alt="{{ $item->title }}" class="w-full h-full object-cover img-zoom" loading="lazy">
                     @else
-                        <div class="w-full h-full bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center">
-                            <svg class="w-10 h-10 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+                        <div class="w-full h-full bg-gradient-to-br from-slate-100 to-slate-50 flex items-center justify-center">
+                            <svg class="w-7 h-7 text-slate-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909M3.75 21h16.5A2.25 2.25 0 0022.5 18.75V5.25A2.25 2.25 0 0020.25 3H3.75A2.25 2.25 0 001.5 5.25v13.5A2.25 2.25 0 003.75 21z"/></svg>
                         </div>
                     @endif
-                    @if($item->category)
-                        <a href="{{ route('news.category', $item->category->slug) }}" class="category-badge bg-pens-blue text-white absolute top-3 left-3 hover:brightness-110 transition-all z-20">{{ $item->category->name }}</a>
-                    @endif
                 </div>
-                <div class="card-info p-5 flex flex-col flex-grow">
-                    <h3 class="font-bold text-sm text-pens-navy leading-snug mb-2 group-hover:text-pens-cyan transition-colors line-clamp-2">{{ $item->title }}</h3>
-                    <p class="text-xs text-gray-400 line-clamp-2 mb-3">{{ Str::limit(strip_tags($item->content), 100) }}</p>
-                    <span class="text-xs text-gray-400 mt-auto">{{ $item->created_at->format('d M Y') }}</span>
-                </div>
-            </div>
+                @if($item->category)
+                    <span class="text-sky-600 text-[10px] font-bold uppercase tracking-widest">{{ $item->category->name }}</span>
+                @endif
+                <h4 class="font-bold text-slate-900 text-sm leading-snug mt-1 group-hover:text-sky-600 transition-colors line-clamp-2">{{ $item->title }}</h4>
+                <time class="text-[11px] text-slate-400 mt-1 block">{{ $item->created_at->diffForHumans() }}</time>
+            </a>
             @endforeach
         </div>
     </div>
