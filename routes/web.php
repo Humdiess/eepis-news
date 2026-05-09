@@ -1,20 +1,37 @@
 <?php
 
+use App\Http\Controllers\PostController;
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\NewsController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\UserController;
 
-Route::get('/', function () {
-    return view('welcome');
-});
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/', [NewsController::class, 'index'])->name('news.index');
+Route::get('/berita/{post:slug}', [NewsController::class, 'show'])->name('news.show');
+Route::get('/kategori/{category:slug}', [NewsController::class, 'category'])->name('news.category');
+Route::get('/search', [NewsController::class, 'search'])->name('news.search');
 
 Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    // Dashboard
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
+    Route::get('/dashboard/posts', [PostController::class, 'index'])->name('dashboard.posts.index');
+    Route::get('/dashboard/posts/create', [PostController::class, 'create'])->name('dashboard.posts.create');
+    Route::get('/dashboard/categories', [CategoryController::class, 'index'])->name('dashboard.categories.index');
+    Route::get('/dashboard/users', [UserController::class, 'index'])->name('dashboard.users.index');
+
+    // Image upload for rich editor
+    Route::post('/upload-image', [PostController::class, 'uploadImage'])->name('upload.image');
+
+    // Resource CRUD
+    Route::resource('posts', PostController::class);
+    Route::resource('categories', CategoryController::class);
 });
 
-require __DIR__.'/auth.php';
+Route::middleware(['auth', 'role:admin'])->group(function () {
+    Route::resource('users', UserController::class);
+});
+
+require __DIR__ . '/auth.php';
