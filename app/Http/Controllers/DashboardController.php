@@ -9,10 +9,16 @@ class DashboardController extends Controller
 {
     public function index()
     {
-        $totalPosts = Post::count();
+        $totalPosts = Post::when(auth()->user()->role !== 'admin', function($query) {
+            $query->where('user_id', auth()->id());
+        })->count();
+
         $totalCategories = Category::count();
 
         $recentPosts = Post::with(['user', 'category'])
+            ->when(auth()->user()->role !== 'admin', function($query) {
+                $query->where('user_id', auth()->id());
+            })
             ->latest()
             ->take(5)
             ->get();
