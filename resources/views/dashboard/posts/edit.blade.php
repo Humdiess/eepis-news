@@ -12,10 +12,7 @@
         if (f) { const r = new FileReader(); r.onload = (ev) => { this.thumbnailPreview = ev.target.result; }; r.readAsDataURL(f); }
     },
     removeThumbnail() { this.thumbnailPreview = null; this.$refs.thumbnailInput.value = ''; },
-    formatText(cmd) { document.execCommand(cmd, false, null); },
     submitForm() {
-        const editor = document.getElementById('content-editor');
-        document.getElementById('content-input').value = editor.innerHTML;
         document.getElementById('post-form').submit();
     }
 }">
@@ -33,7 +30,6 @@
     <form id="post-form" action="{{ route('posts.update', $post->id) }}" method="POST" enctype="multipart/form-data">
         @csrf
         @method('PUT')
-        <input type="hidden" id="content-input" name="content" value="">
 
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
             {{-- Main --}}
@@ -56,35 +52,10 @@
                     </div>
                 </div>
 
-                {{-- Rich Text --}}
+                {{-- CKEditor Rich Text --}}
                 <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
                     <label class="block text-sm font-semibold text-pens-navy mb-3">Konten Berita <span class="text-red-400">*</span></label>
-                    <div class="flex items-center gap-1 p-2 bg-gray-50 border border-gray-200 rounded-t-xl border-b-0 flex-wrap">
-                        <button @click="formatText('bold')" type="button" class="p-2 text-gray-500 hover:text-pens-navy hover:bg-white rounded-lg transition-all" title="Bold">
-                            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor"><path d="M6 4h8a4 4 0 014 4 4 4 0 01-4 4H6zm0 8h9a4 4 0 014 4 4 4 0 01-4 4H6z"/></svg>
-                        </button>
-                        <button @click="formatText('italic')" type="button" class="p-2 text-gray-500 hover:text-pens-navy hover:bg-white rounded-lg transition-all" title="Italic">
-                            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="19" y1="4" x2="10" y2="4"/><line x1="14" y1="20" x2="5" y2="20"/><line x1="15" y1="4" x2="9" y2="20"/></svg>
-                        </button>
-                        <button @click="formatText('underline')" type="button" class="p-2 text-gray-500 hover:text-pens-navy hover:bg-white rounded-lg transition-all" title="Underline">
-                            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 3v7a6 6 0 006 6 6 6 0 006-6V3"/><line x1="4" y1="21" x2="20" y2="21"/></svg>
-                        </button>
-                        <div class="w-px h-6 bg-gray-200 mx-1"></div>
-                        <button @click="formatText('insertUnorderedList')" type="button" class="p-2 text-gray-500 hover:text-pens-navy hover:bg-white rounded-lg transition-all" title="Bullet List">
-                            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="9" y1="6" x2="20" y2="6"/><line x1="9" y1="12" x2="20" y2="12"/><line x1="9" y1="18" x2="20" y2="18"/><circle cx="5" cy="6" r="1.5" fill="currentColor"/><circle cx="5" cy="12" r="1.5" fill="currentColor"/><circle cx="5" cy="18" r="1.5" fill="currentColor"/></svg>
-                        </button>
-                        <button @click="formatText('insertOrderedList')" type="button" class="p-2 text-gray-500 hover:text-pens-navy hover:bg-white rounded-lg transition-all" title="Numbered List">
-                            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="10" y1="6" x2="21" y2="6"/><line x1="10" y1="12" x2="21" y2="12"/><line x1="10" y1="18" x2="21" y2="18"/></svg>
-                        </button>
-                        <div class="w-px h-6 bg-gray-200 mx-1"></div>
-                        <select @change="document.execCommand('formatBlock', false, $event.target.value); $event.target.value = ''" class="px-2 py-1.5 text-xs bg-white border border-gray-200 rounded-lg text-gray-600 focus:ring-0">
-                            <option value="">Heading</option>
-                            <option value="h2">Heading 2</option>
-                            <option value="h3">Heading 3</option>
-                            <option value="p">Paragraph</option>
-                        </select>
-                    </div>
-                    <div id="content-editor" contenteditable="true" class="w-full min-h-[320px] px-4 py-4 bg-white border border-gray-200 rounded-b-xl text-sm text-gray-700 focus:ring-2 focus:ring-pens-cyan/30 focus:border-pens-cyan outline-none" style="line-height:1.8;">{!! $post->content !!}</div>
+                    <textarea name="content" id="editor">{!! $post->content !!}</textarea>
                     @error('content')
                         <p class="text-xs text-red-500 mt-1">{{ $message }}</p>
                     @enderror
@@ -121,7 +92,7 @@
                         </div>
                     </div>
                     <div class="mt-6 pt-5 border-t border-gray-100">
-                        <button type="button" @click="submitForm()" class="w-full px-4 py-2.5 text-sm font-semibold text-white bg-blue-600 rounded-xl hover:shadow-lg hover:bg-blue-700 transition-all hover:-translate-y-0.5">Simpan Perubahan</button>
+                        <button type="submit" class="w-full px-4 py-2.5 text-sm font-semibold text-white bg-blue-600 rounded-xl hover:shadow-lg hover:bg-blue-700 transition-all hover:-translate-y-0.5">Simpan Perubahan</button>
                     </div>
                 </div>
 
@@ -132,18 +103,13 @@
                         Gambar Thumbnail
                     </h3>
                     <div class="relative">
-                        {{-- File input always in DOM --}}
                         <input type="file" name="thumbnail" x-ref="thumbnailInput" class="hidden" accept="image/*" @change="handleThumbnail($event)">
-
-                        {{-- Preview --}}
                         <div x-show="thumbnailPreview" class="relative rounded-xl overflow-hidden">
                             <img :src="thumbnailPreview" class="w-full h-48 object-cover rounded-xl">
                             <button type="button" @click="removeThumbnail()" class="absolute top-2 right-2 p-1.5 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-colors shadow-lg">
                                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
                             </button>
                         </div>
-
-                        {{-- Upload placeholder --}}
                         <div x-show="!thumbnailPreview" @click="$refs.thumbnailInput.click()" class="flex flex-col items-center justify-center w-full h-48 border-2 border-dashed border-gray-200 rounded-xl cursor-pointer hover:border-pens-cyan hover:bg-pens-cyan/5 transition-all group">
                             <div class="w-12 h-12 rounded-xl bg-gray-100 group-hover:bg-pens-cyan/10 flex items-center justify-center mb-3 transition-colors">
                                 <svg class="w-6 h-6 text-gray-400 group-hover:text-pens-cyan transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"/></svg>
@@ -175,4 +141,118 @@
         </div>
     </form>
 </div>
+
+@push('styles')
+<style>
+    .ck-editor__editable {
+        min-height: 400px !important;
+        font-family: 'Outfit', sans-serif !important;
+        font-size: 15px !important;
+        line-height: 1.8 !important;
+        color: #374151 !important;
+    }
+    .ck-editor__editable:focus {
+        border-color: #0EA5E9 !important;
+        box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.15) !important;
+    }
+    .ck.ck-editor__main > .ck-editor__editable {
+        border-radius: 0 0 12px 12px !important;
+    }
+    .ck.ck-toolbar {
+        border-radius: 12px 12px 0 0 !important;
+        background: #f9fafb !important;
+        border-color: #e5e7eb !important;
+    }
+    .ck.ck-editor {
+        border-radius: 12px !important;
+    }
+    .ck.ck-editor__editable_inline {
+        border-color: #e5e7eb !important;
+    }
+    .ck-content h2 { font-size: 1.5em; font-weight: 700; margin-top: 1.5em; margin-bottom: 0.5em; }
+    .ck-content h3 { font-size: 1.25em; font-weight: 600; margin-top: 1.25em; margin-bottom: 0.5em; }
+    .ck-content blockquote {
+        border-left: 3px solid #0EA5E9;
+        padding-left: 1rem;
+        color: #6b7280;
+        font-style: italic;
+    }
+    .ck-content img { border-radius: 12px; margin: 1em 0; }
+    .ck-content figure.image { margin: 1.5em 0; }
+    .ck-content figure.image figcaption { font-size: 0.85em; color: #9ca3af; text-align: center; margin-top: 0.5em; }
+    .ck-content ol, .ck-content ul {
+        padding-left: 2em !important;
+    }
+    .ck-content ol { list-style-type: decimal !important; }
+    .ck-content ul { list-style-type: disc !important; }
+    .ck-content li { padding-left: 0.25em; }
+</style>
+@endpush
+
+@push('scripts')
+<script src="https://cdn.ckeditor.com/ckeditor5/41.4.2/super-build/ckeditor.js"></script>
+<script>
+    CKEDITOR.ClassicEditor.create(document.getElementById('editor'), {
+        toolbar: {
+            items: [
+                'heading', '|',
+                'bold', 'italic', 'underline', 'strikethrough', '|',
+                'fontSize', 'fontColor', '|',
+                'alignment', '|',
+                'bulletedList', 'numberedList', '|',
+                'outdent', 'indent', '|',
+                'blockQuote', 'insertTable', 'horizontalLine', '|',
+                'link', 'uploadImage', 'mediaEmbed', '|',
+                'undo', 'redo', '|',
+                'removeFormat', 'sourceEditing'
+            ],
+            shouldNotGroupWhenFull: false
+        },
+        heading: {
+            options: [
+                { model: 'paragraph', title: 'Paragraph', class: 'ck-heading_paragraph' },
+                { model: 'heading2', view: 'h2', title: 'Heading 2', class: 'ck-heading_heading2' },
+                { model: 'heading3', view: 'h3', title: 'Heading 3', class: 'ck-heading_heading3' },
+                { model: 'heading4', view: 'h4', title: 'Heading 4', class: 'ck-heading_heading4' }
+            ]
+        },
+        image: {
+            toolbar: [
+                'imageTextAlternative', 'toggleImageCaption',
+                'imageStyle:inline', 'imageStyle:block', 'imageStyle:side',
+                '|', 'linkImage'
+            ],
+            upload: {
+                types: ['jpeg', 'png', 'gif', 'webp']
+            }
+        },
+        table: {
+            contentToolbar: ['tableColumn', 'tableRow', 'mergeTableCells']
+        },
+        mediaEmbed: {
+            previewsInData: true
+        },
+        simpleUpload: {
+            uploadUrl: '{{ route("upload.image") }}',
+            headers: {
+                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+            }
+        },
+        placeholder: 'Mulai menulis berita Anda di sini...',
+        language: 'id',
+        removePlugins: [
+            'AIAssistant', 'CKBox', 'CKFinder', 'EasyImage',
+            'RealTimeCollaborativeComments', 'RealTimeCollaborativeTrackChanges',
+            'RealTimeCollaborativeRevisionHistory', 'PresenceList', 'Comments', 'TrackChanges',
+            'TrackChangesData', 'RevisionHistory', 'Pagination', 'WProofreader',
+            'MathType', 'SlashCommand', 'Template', 'DocumentOutline', 'FormatPainter',
+            'TableOfContents', 'PasteFromOfficeEnhanced', 'CaseChange',
+            'MultiLevelList', 'ExportPdf', 'ExportWord', 'ImportWord',
+        ],
+    })
+    .catch(error => {
+        console.error('CKEditor init error:', error);
+    });
+</script>
+@endpush
 </x-dashboard-layout>

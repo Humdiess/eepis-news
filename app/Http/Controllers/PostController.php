@@ -135,4 +135,20 @@ class PostController extends Controller
 
         return redirect()->route('dashboard.posts.index')->with('success', 'Berita berhasil dihapus!');
     }
+
+    /**
+     * Upload image from rich text editor
+     */
+    public function uploadImage(Request $request)
+    {
+        $request->validate([
+            'upload' => 'required|image|mimes:jpg,jpeg,png,gif,webp|max:5120',
+        ]);
+
+        $path = $request->file('upload')->store('posts/content', 'public');
+
+        return response()->json([
+            'url' => asset('storage/' . $path),
+        ]);
+    }
 }

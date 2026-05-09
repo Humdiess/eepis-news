@@ -22,6 +22,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/dashboard/categories', [CategoryController::class, 'index'])->name('dashboard.categories.index');
     Route::get('/dashboard/users', [UserController::class, 'index'])->name('dashboard.users.index');
 
+    // Image upload for rich editor
+    Route::post('/upload-image', [PostController::class, 'uploadImage'])->name('upload.image');
+
     // Resource CRUD
     Route::resource('posts', PostController::class);
     Route::resource('categories', CategoryController::class);
