@@ -83,6 +83,37 @@ graph TD
 
 ---
 
+## 📂 Struktur Proyek
+
+Berikut adalah struktur folder utama yang telah diorganisir berdasarkan fungsionalitasnya:
+
+```text
+eepis-news/
+├── app/
+│   ├── Http/Controllers/
+│   │   ├── Auth/              # Logika Autentikasi
+│   │   ├── NewsController.php # Controller Halaman Publik
+│   │   ├── PostController.php # CRUD Berita (CMS)
+│   │   └── ...                # Category & User Controller
+│   └── Models/                # User, Post, Category Models
+├── database/
+│   ├── migrations/            # Skema Database
+│   └── seeders/               # Data Dummy (DummyNewsSeeder)
+├── resources/
+│   ├── css/                   # Tailwind Custom Styles
+│   ├── js/                    # CKEditor & Alpine Setup
+│   └── views/
+│       ├── components/        # UI Components (Sidebar, Topbar)
+│       ├── dashboard/         # Views Admin Panel (Cleaned)
+│       ├── layouts/           # Layout news, dashboard, guest
+│       └── news/              # Views Halaman Publik
+└── routes/
+    ├── web.php                # Route Utama & CMS
+    └── auth.php               # Route Autentikasi
+```
+
+---
+
 ## 🏗️ Arsitektur Proyek
 - **Separation of Concerns**: Logika Controller dipisahkan berdasarkan fungsinya (Public, Admin, Auth).
 - **Security**: Implementasi middleware `auth` dan proteksi level aplikasi untuk data kepemilikan.
