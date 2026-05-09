@@ -22,6 +22,9 @@ class PostController extends Controller
         $categoryFilter = $request->category;
 
         $posts = Post::with(['user', 'category'])
+            ->when(auth()->user()->role !== 'admin', function($query) {
+                $query->where('user_id', auth()->id());
+            })
             ->when($search, function($query) use ($search){
                 $query->where('title', 'like', "%{$search}%");
             })
@@ -82,6 +85,11 @@ class PostController extends Controller
      */
     public function edit(Post $post)
     {
+        // Penulis hanya bisa edit beritanya sendiri
+        if (auth()->user()->role !== 'admin' && $post->user_id !== auth()->id()) {
+            abort(403);
+        }
+
         $categories = Category::orderBy('name')->get();
 
         return view('dashboard.posts.edit', compact('post', 'categories'));
@@ -92,6 +100,10 @@ class PostController extends Controller
      */
     public function update(Request $request, Post $post)
     {
+        if (auth()->user()->role !== 'admin' && $post->user_id !== auth()->id()) {
+            abort(403);
+        }
+
         $request->validate([
             'title'       => 'required|string|max:255',
             'category_id' => 'required|exists:categories,id',
@@ -126,6 +138,10 @@ class PostController extends Controller
      */
     public function destroy(Post $post)
     {
+        if (auth()->user()->role !== 'admin' && $post->user_id !== auth()->id()) {
+            abort(403);
+        }
+
         // Hapus thumbnail jika ada
         if ($post->thumbnail) {
             Storage::disk('public')->delete($post->thumbnail);
