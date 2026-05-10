@@ -150,4 +150,7 @@ eepis-news/
    ```bash
    php artisan serve
    ```
+      ```bash
+   npm run dev
+   ```
 
