@@ -30,7 +30,7 @@ EEPIS News adalah platform portal berita digital yang dirancang khusus untuk man
 
 ## 🛠️ Tech Stack
 
-- **Backend**: Laravel 11
+- **Backend**: Laravel 13
 - **Frontend**: Blade Engine, Tailwind CSS, Alpine.js
 - **Database**: MySQL
 - **Rich Editor**: CKEditor 5 Super Build
