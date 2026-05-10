@@ -1,10 +1,10 @@
 # EEPIS News — Portal Berita Kampus PENS
 
-EEPIS News adalah platform portal berita digital yang dirancang khusus untuk manajemen konten berita di lingkungan Politeknik Elektronika Negeri Surabaya (PENS). Proyek ini dibangun sebagai bagian dari *technical assessment* ENT Webmaster dengan fokus pada sistem CRUD yang kuat, manajemen peran (RBAC), dan pengalaman pengguna yang premium.
+EEPIS News adalah platform portal berita digital yang dirancang khusus untuk manajemen konten berita di lingkungan Politeknik Elektronika Negeri Surabaya (PENS). Proyek ini dibangun sebagai bagian dari penilaian 100 kerja divisi WM ENT GEN 20
 
 ---
 
-## 🚀 Fitur Utama
+## Fitur Utama
 
 ### 1. Sistem Autentikasi & Otorisasi
 - **Multi-role Access**: Mendukung peran **Admin** dan **Penulis**.
@@ -28,7 +28,7 @@ EEPIS News adalah platform portal berita digital yang dirancang khusus untuk man
 
 ---
 
-## 🛠️ Tech Stack
+## Tech Stack
 
 - **Backend**: Laravel 13
 - **Frontend**: Blade Engine, Tailwind CSS, Alpine.js
@@ -37,7 +37,7 @@ EEPIS News adalah platform portal berita digital yang dirancang khusus untuk man
 
 ---
 
-## 📊 Desain Sistem
+## Desain Sistem
 
 ### 1. ERD (Entity Relationship Diagram)
 ```mermaid
@@ -83,7 +83,7 @@ graph TD
 
 ---
 
-## 📂 Struktur Proyek
+## Struktur Proyek
 
 Berikut adalah struktur folder utama yang telah diorganisir berdasarkan fungsionalitasnya:
 
@@ -114,14 +114,14 @@ eepis-news/
 
 ---
 
-## 🏗️ Arsitektur Proyek
+## Arsitektur Proyek
 - **Separation of Concerns**: Logika Controller dipisahkan berdasarkan fungsinya (Public, Admin, Auth).
 - **Security**: Implementasi middleware `auth` dan proteksi level aplikasi untuk data kepemilikan.
 - **Clean Code**: Penggunaan naming convention yang konsisten dan struktur folder standar Laravel.
 
 ---
 
-## 💻 Instalasi
+## Instalasi
 
 1. **Clone & Install**
    ```bash
